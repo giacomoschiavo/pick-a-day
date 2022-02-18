@@ -1,0 +1,12 @@
+.btn {
+  background-color: #111;
+  padding: 10px;
+  color: white;
+  cursor: pointer;
+}
+
+.secondary {
+  border: 1px solid #aaa;
+  color: #aaa;
+  background-color: white;
+}
