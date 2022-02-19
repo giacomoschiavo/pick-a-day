@@ -3,7 +3,7 @@ import classes from "./Vote.module.css";
 import Label from "../ui/Label";
 import TextInput from "../ui/TextInput";
 import Button from "../ui/Button";
-import AvailableDays from "../ui/AvailableDays";
+import AvailableDays from "../container/AvailableDays";
 
 const Vote = () => {
   return (
