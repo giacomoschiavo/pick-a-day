@@ -6,23 +6,18 @@
   justify-content: center;
   align-items: center;
   border-radius: 15px;
-  box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);
-  transition-duration: 0.2s;
+  box-shadow: 0px 10px 10px 0 rgba(0, 0, 0, 0.1);
+  transition-duration: 0.8s;
 }
 
 .container:hover {
-  background: #dbdbdb;
-  transition-duration: 0.2s;
+  transition-duration: 0.5s;
   cursor: pointer;
 }
 
-.containerPressed {
-  width: 60px;
-  height: 60px;
-  background: #a8a7a7;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 15px;
-  box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);
+.selected {
+  box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.4);
+  background: #9CFF94;
+  transition-duration: 0.8s;
+  /* box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.05); */
 }

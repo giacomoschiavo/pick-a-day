@@ -2,3 +2,16 @@
   display: flex;
   flex-direction: column;
 }
+
+.days {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  width: 50%;
+  margin: 0 auto;
+}
+
+.days>div {
+  margin: 10px;
+}

@@ -1,16 +1,19 @@
 import React from "react";
 import Button from "../ui/Button";
 import Label from "../ui/Label";
+import Calendar from "react-calendar";
+import TextInput from "../ui/TextInput";
+import "../ui/Calendar.css";
 import classes from "./Create.module.css";
 const Create = () => {
   return (
-    <div>
-      <Label className={classes.labelHome}>What is the event name?</Label>
-      <input />
-      <Label className={classes.labelHome}>When?</Label>
-      {/* calendario */}
-      <Button className={classes.btn} value="Create" />
-    </div>
+    <>
+      <Label>What's the event name?</Label>
+      <TextInput />
+      <Label>When?</Label>
+      <Calendar />
+      <Button className={classes.createButton}>Create</Button>
+    </>
   );
 };
 

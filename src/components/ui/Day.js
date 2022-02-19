@@ -1,11 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import classes from "./Day.module.css";
 
 const Day = (props) => {
-  return <div className={props.isSelected ? classes.containerPressed : classes.container}>
-    <p>{props.children}</p>
-  </div>;
+  const [selected, setSelected] = useState(false);
 
+  const onClickHandler = () => {
+    setSelected((prev) => !prev);
+  };
+
+  return (
+    <div
+      className={`${classes.container} ${selected && classes.selected}`}
+      onClick={onClickHandler}
+    >
+      <p>{props.children}</p>
+    </div>
+  );
 };
 
 export default Day;
