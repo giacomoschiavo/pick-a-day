@@ -9,12 +9,8 @@ import CenteredContainer from "./components/container/CenteredContainer";
 function App() {
   return (
     <>
-      <Header />
       <CenteredContainer>
-        <p>fioasdjasdias</p>
-        <p>fioasdjasdias</p>
-        <p>fioasdjasdias</p>
-        <p>fioasdjasdias</p>
+        <Header />
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Home />} />

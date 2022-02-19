@@ -1,5 +1,6 @@
 .header {
-  padding: 20px;
+  padding: 8px;
   box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
   text-align: center;
+  border-radius: 0 0 20px 20px;
 }
