@@ -6,6 +6,7 @@ import Vote from "./components/routes/Vote";
 import Header from "./components/ui/Header";
 import Results from "./components/routes/Results";
 import CenteredContainer from "./components/container/CenteredContainer";
+
 function App() {
   return (
     <>
