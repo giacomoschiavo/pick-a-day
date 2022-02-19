@@ -4,7 +4,7 @@ import classes from "./Header.module.css";
 const Header = () => {
   return (
     <div className={classes.header}>
-      <h1>pick a day</h1>
+      <img src="./logo.png" alt="pick-a-day-logo" />
     </div>
   );
 };

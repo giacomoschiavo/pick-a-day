@@ -1,7 +1,15 @@
 .header {
-  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 60px;
   box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
   text-align: center;
   border-radius: 0 0 20px 20px;
   width: 100%;
+  overflow: hidden;
+}
+
+img {
+  height: 190px;
 }
