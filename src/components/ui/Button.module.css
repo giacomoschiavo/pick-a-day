@@ -1,4 +1,6 @@
 .btn {
+  box-sizing: border-box;
+  width: fit-content;
   background-color: #111;
   padding: 10px;
   color: white;
