@@ -1,11 +1,7 @@
 import React from "react";
-
+import Header from "../ui/Header";
 const Create = () => {
-  return (
-    <div>
-      <p>Create</p>
-    </div>
-  );
+  return <div></div>;
 };
 
 export default Create;
