@@ -7,6 +7,7 @@ import TextInput from "../ui/TextInput";
 import { useNavigate } from "react-router-dom";
 import classes from "./Create.module.css";
 import "../ui/Calendar.css";
+import { dateToFormat } from "../../utils";
 const Create = () => {
   const [eventName, setEventName] = useState("");
   const [eventDays, setEventDays] = useState([]);
@@ -15,7 +16,8 @@ const Create = () => {
 
   const navigateToVote = () => {
     console.log("Nome scelto:", eventName);
-    console.log("Giorni scelti:", eventDays);
+    const formattedDates = eventDays.map(dateToFormat);
+    console.log("Giorni scelti:", formattedDates);
     // navigate("/vote");
   };
 

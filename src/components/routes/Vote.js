@@ -7,7 +7,7 @@ import AvailableDays from "../container/AvailableDays";
 
 const Vote = () => {
   return (
-    <>
+    <div className={classes.container}>
       <Label>What's your name?</Label>
       <TextInput />
       <Label>Available days</Label>
@@ -17,7 +17,7 @@ const Vote = () => {
       <Button className={classes.resultsButton} isPrimary={false}>
         Show results
       </Button>
-    </>
+    </div>
   );
 };
 
