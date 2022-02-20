@@ -20,9 +20,11 @@ const ResultTab = (props) => {
           {props.success ? <BsHandThumbsUp /> : <BsHandThumbsDown />}
         </div>
         <p>{props.date || "No date"}</p>
-        <div className={classes.participants}>
-          <p>9/9</p>
-        </div>
+        {!props.success && (
+          <div className={classes.participants}>
+            <p>{props.participants.length}/9</p>
+          </div>
+        )}
       </div>
       {!props.success && show && (
         <div className={classes.list}>
