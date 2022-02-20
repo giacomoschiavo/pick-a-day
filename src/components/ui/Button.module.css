@@ -1,18 +1,19 @@
 .btn {
   box-sizing: border-box;
   width: fit-content;
-  background-color: #111;
+  background-color: #505050;
   padding: 15px;
   padding-left: 40px;
   padding-right: 40px;
   color: white;
   cursor: pointer;
-  transition-duration: 0.2s;
+  transition-duration: 0.8s;
+  box-shadow: 0px 10px 10px 0 rgba(0, 0, 0, 0.1);
 }
 
-.btn:hover {
-  transform: scale(1.05);
-  transition-duration: 0.2s;
+.btn:active {
+  transition-duration: 0.8s;
+  box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.4);
 }
 
 .secondary {
