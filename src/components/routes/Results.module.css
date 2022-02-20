@@ -1,3 +1,7 @@
 .container {
   width: 28rem;
 }
+
+.resultsTab>div {
+  margin: 10px 0;
+}
