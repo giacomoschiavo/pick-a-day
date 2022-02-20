@@ -17,7 +17,6 @@ const TextInput = (props) => {
       />
       <span className={classes.highlight} />
       <span className={classes.bar} />
-      <span className={classes.label}>Name</span>
     </div>
   );
 };
