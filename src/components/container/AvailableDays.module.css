@@ -3,6 +3,10 @@
   flex-direction: column;
 }
 
+.monthContainer {
+  margin: 10px 0;
+}
+
 .label {
   text-align: left;
   font-weight: lighter;
