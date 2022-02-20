@@ -1,6 +1,6 @@
 import React from "react";
 import Button from "../ui/Button";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Label from "../ui/Label";
 import Calendar from "react-calendar";
 import TextInput from "../ui/TextInput";
@@ -9,23 +9,44 @@ import classes from "./Create.module.css";
 import "../ui/Calendar.css";
 const Create = () => {
   const [eventName, setEventName] = useState("");
+  const [eventDays, setEventDays] = useState([]);
 
   const navigate = useNavigate();
 
   const navigateToVote = () => {
-    navigate("/vote");
+    console.log("Nome scelto:", eventName);
+    console.log("Giorni scelti:", eventDays);
+    // navigate("/vote");
   };
 
-  useEffect(() => {
-    console.log(eventName);
-  }, [eventName]);
+  const onClickDayHandler = (date, e) => {
+    const dateToCheck = new Date(date).getTime();
+    // const dateFormatted = `${date.getDay()}-${date.getMonth()}-${date.getFullYear()}`;
+    // elimina il giorno gia presente
+    if (eventDays.indexOf(dateToCheck) > -1) {
+      setEventDays((prev) => prev.filter((date) => date !== dateToCheck));
+    } else {
+      // oppure lo aggiunge
+      setEventDays((prev) => [...prev, dateToCheck]);
+    }
+  };
+
+  const getTileClassName = ({ date }) => {
+    // se la data e' stata selezionata, aggiungi la classe
+    const dateToCheck = new Date(date).getTime();
+    const foundDay = eventDays.find((day) => day === dateToCheck);
+    return foundDay ? classes.selectedDate : "";
+  };
 
   return (
     <>
       <Label>What's the event name?</Label>
       <TextInput value={eventName} setValue={setEventName} />
       <Label>When?</Label>
-      <Calendar />
+      <Calendar
+        tileClassName={(date) => getTileClassName(date)}
+        onClickDay={onClickDayHandler}
+      />
       <Button className={classes.createButton} onClick={navigateToVote}>
         Create
       </Button>
