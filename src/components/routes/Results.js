@@ -7,32 +7,32 @@ const participants = ["gigi", "gigio", "luigi", "marla", "ludobecca"];
 
 const okDays = [
   {
-    date: "10-09-22",
+    date: "10/9/2022",
   },
   {
-    date: "11-09-22",
+    date: "11/9/2022",
   },
 ];
 
 const otherDays = [
   {
-    date: "12-09-22",
+    date: "12/9/2022",
     participants,
   },
   {
-    date: "13-09-22",
+    date: "13/9/2022",
     participants,
   },
   {
-    date: "14-09-22",
+    date: "14/9/2022",
     participants,
   },
   {
-    date: "15-09-22",
+    date: "15/9/2022",
     participants,
   },
   {
-    date: "16-09-22",
+    date: "16/9/2022",
     participants,
   },
 ];

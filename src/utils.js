@@ -14,12 +14,19 @@ export const formatToDate = (dateString) => {
 export const divideInMonths = (dates) => {
   if (!Array.isArray(dates)) throw new Error("Array of dates needed");
   const formattedDates = dates.map(formatToDate);
-  const months = {};
+  const organized = {};
   formattedDates.forEach((date) => {
+    const year = date.getFullYear();
     const month = date.toLocaleString("default", { month: "long" });
     const capitalCaseMonth = month.charAt(0).toUpperCase() + month.slice(1);
-    if (months[capitalCaseMonth]) months[capitalCaseMonth].push(date.getDate());
-    else months[capitalCaseMonth] = [date.getDate()];
+    if (organized[year]) {
+      if (organized[year][capitalCaseMonth])
+        organized[year][capitalCaseMonth].push(date.getDate());
+      else organized[year][capitalCaseMonth] = [date.getDate()];
+    } else {
+      organized[year] = {};
+      organized[year][capitalCaseMonth] = [date.getDate()];
+    }
   });
-  return months;
+  return organized;
 };
