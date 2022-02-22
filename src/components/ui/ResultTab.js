@@ -22,14 +22,14 @@ const ResultTab = (props) => {
         <p>{props.date || "No date"}</p>
         {!props.success && (
           <div className={classes.participants}>
-            <p>{props.participants.length}/9</p>
+            <p>{props.ratio}</p>
           </div>
         )}
       </div>
       {!props.success && show && (
         <div className={classes.list}>
-          {props.participants &&
-            props.participants.map((part) => <p>{part}</p>)}
+          {props.nonParts &&
+            props.nonParts.map((part, i) => <p key={i}>{part}</p>)}
         </div>
       )}
     </>
