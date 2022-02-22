@@ -8,13 +8,13 @@ const AvailableDays = (props) => {
   const formattedDates = divideInMonths(props.availableDates);
 
   const addDay = (date) => {
-    const index = props.availableDays.indexOf(date.getTime());
+    const index = props.choosenDays.indexOf(date.getTime());
     if (index > -1) {
-      props.setAvailableDays((prev) =>
+      props.setChoosenDays((prev) =>
         prev.filter((aDate) => aDate !== date.getTime())
       );
     } else {
-      props.setAvailableDays((prev) => [...prev, date.getTime()]);
+      props.setChoosenDays((prev) => [...prev, date.getTime()]);
     }
   };
 

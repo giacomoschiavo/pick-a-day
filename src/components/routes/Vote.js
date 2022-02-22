@@ -56,13 +56,12 @@ const Vote = () => {
   //updates datas in database
   useEffect(() => {
 
-    console.log(choosenDays)
-
-    for (let i = 0; i < choosenDays.length; i++) {
-      choosenDays[i] = dateToFormat(choosenDays[i]);
-    }
-
     if (sendingData) {
+
+      for (let i = 0; i < choosenDays.length; i++) {
+        choosenDays[i] = dateToFormat(choosenDays[i]);
+      }
+
       axios.post('/api/v1/partecipants', {
         ip: ip,
         name: userName,
@@ -93,8 +92,8 @@ const Vote = () => {
       <TextInput value={userName} disabled={hasAlreadyLogged} setValue={setUserName} />
       <Label>When are you available for "{eventName}" ?</Label>
       <AvailableDays
-        availableDays={choosenDays}
-        setAvailableDays={setChoosenDays}
+        choosenDays={choosenDays}
+        setChoosenDays={setChoosenDays}
         availableDates={availableDates}
       />
       <Button className={classes.sendButton} onClick={() => setSendingData(true)}>Send</Button>
