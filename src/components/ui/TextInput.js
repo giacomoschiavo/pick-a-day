@@ -12,6 +12,7 @@ const TextInput = (props) => {
       <input
         type="text"
         value={props.value}
+        disabled={props.disabled}
         onChange={onChangeHandler}
         required
       />
