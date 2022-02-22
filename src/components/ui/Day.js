@@ -6,6 +6,7 @@ const Day = (props) => {
 
   const onClickHandler = () => {
     setSelected((prev) => !prev);
+    props.addDay(props.date);
   };
 
   return (

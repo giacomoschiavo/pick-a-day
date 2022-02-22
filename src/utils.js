@@ -10,6 +10,10 @@ export const formatToDate = (dateString) => {
   return new Date(`${month}/${day}&${year}`);
 };
 
+export const createDate = (day, month, year) => {
+  return new Date(`${day}/${month}/${year}`);
+};
+
 // usata solo per array di date
 export const divideInMonths = (dates) => {
   if (!Array.isArray(dates)) throw new Error("Array of dates needed");

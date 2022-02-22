@@ -2,7 +2,7 @@ import React from "react";
 import classes from "./AvailableDays.module.css";
 import Label from "../ui/Label";
 import Day from "../ui/Day";
-import { divideInMonths } from "../../utils";
+import { divideInMonths, createDate } from "../../utils";
 
 const availableDates = [
   "12/2/2022",
@@ -19,6 +19,18 @@ const availableDates = [
 
 const AvailableDays = (props) => {
   const formattedDates = divideInMonths(availableDates);
+
+  const addDay = (date) => {
+    const index = props.availableDays.indexOf(date.getTime());
+    if (index > -1) {
+      props.setAvailableDays((prev) =>
+        prev.filter((aDate) => aDate !== date.getTime())
+      );
+    } else {
+      props.setAvailableDays((prev) => [...prev, date.getTime()]);
+    }
+  };
+
   return (
     <div className={classes.container}>
       {Object.keys(formattedDates).map((year) => (
@@ -29,7 +41,13 @@ const AvailableDays = (props) => {
               <Label className={classes.label}>{month}</Label>
               <div className={classes.days}>
                 {formattedDates[year][month].map((day) => (
-                  <Day key={day}>{day}</Day>
+                  <Day
+                    key={day}
+                    date={createDate(day, month, year)}
+                    addDay={addDay}
+                  >
+                    {day}
+                  </Day>
                 ))}
               </div>
             </div>
