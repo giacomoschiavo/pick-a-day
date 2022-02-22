@@ -5,40 +5,99 @@ import TextInput from "../ui/TextInput";
 import Button from "../ui/Button";
 import AvailableDays from "../container/AvailableDays";
 import axios from "axios";
+import { useParams } from "react-router-dom";
+import { dateToFormat } from "../../utils";
 
 const Vote = () => {
-  //determinates if user has already visited the page
-  useEffect(() => {
-    axios
-      .get("https://geolocation-db.com/json/")
-      .then(function (response) {
-        //TODO controllare se l'utente è giá stato inserito e chiamare setHasAlreadyLogged
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }, []);
 
   const [hasAlreadyLogged, setHasAlreadyLogged] = useState(false);
-  const [availableDays, setAvailableDays] = useState([]);
+  const [choosenDays, setChoosenDays] = useState([]);
+  const [availableDates, setAvailableDates] = useState([]);
+  const [userName, setUserName] = useState('');
+  const [eventName, setEventName] = useState('');
+  const [sendingData, setSendingData] = useState(false);
+  const [ip, setIp] = useState('');
 
+  const { id } = useParams();
+
+  //get user ip
   useEffect(() => {
-    console.log(availableDays);
-  }, [availableDays]);
 
-  const eventName = "Cena con i boys"; //TODO da reperire dal backend
-  const userName = "Enrico"; //TODO prendere nome da textinput o dal server se l'user é loggato
+    axios.get('https://geolocation-db.com/json/').then(res => {
+      setIp(res.data.IPv4);
+    }).catch(err => {
+      console.log(err)
+    })
+
+  }, []);
+
+  //determinates if user has already visited the page
+  useEffect(() => {
+
+    if (localStorage.getItem('eventsList') != null) {
+      if (localStorage.getItem('eventsList')[id] != null) {
+        setHasAlreadyLogged(true);
+        setUserName(localStorage.getItem('eventsList')[id]);
+      }
+    }
+
+  }, [id]);
+
+  //get event info
+  useEffect(() => {
+    axios.get(`/api/v1/event/${id}`).then(res => {
+      setEventName(res.data.name);
+      setAvailableDates(res.data.days);
+    }).catch(error => {
+      console.log(error)
+    });
+  }, [id]);
+
+  //updates datas in database
+  useEffect(() => {
+
+    console.log(choosenDays)
+
+    for (let i = 0; i < choosenDays.length; i++) {
+      choosenDays[i] = dateToFormat(choosenDays[i]);
+    }
+
+    if (sendingData) {
+      axios.post('/api/v1/partecipants', {
+        ip: ip,
+        name: userName,
+        available: choosenDays,
+        eventId: id
+      }).then(res => {
+        setSendingData(false);
+        if (localStorage.getItem('eventsList') != null) {
+          let newEventList = localStorage.getItem('eventsList');
+          newEventList[id] = userName;
+          localStorage.setItem('eventsList', newEventList);
+        } else {
+          let newEventList = {};
+          newEventList[id] = userName;
+          localStorage.setItem('eventsList', newEventList);
+        }
+        console.log("sfaccim ce l'abbiamo fatta")
+      }).catch(error => {
+        console.log(error)
+      });
+    }
+
+  }, [sendingData, setSendingData, choosenDays, eventName, ip, id, userName]);
 
   return (
     <div className={classes.container}>
       <Label>What's your name?</Label>
-      <TextInput value={userName} disabled={hasAlreadyLogged} />
+      <TextInput value={userName} disabled={hasAlreadyLogged} setValue={setUserName} />
       <Label>When are you available for "{eventName}" ?</Label>
       <AvailableDays
-        availableDays={availableDays}
-        setAvailableDays={setAvailableDays}
+        availableDays={choosenDays}
+        setAvailableDays={setChoosenDays}
+        availableDates={availableDates}
       />
-      <Button className={classes.sendButton}>Send</Button>
+      <Button className={classes.sendButton} onClick={() => setSendingData(true)}>Send</Button>
       <p>or</p>
       <Button className={classes.resultsButton} isPrimary={false}>
         Show results

@@ -4,21 +4,8 @@ import Label from "../ui/Label";
 import Day from "../ui/Day";
 import { divideInMonths, createDate } from "../../utils";
 
-const availableDates = [
-  "12/2/2022",
-  "13/2/2022",
-  "14/2/2022",
-  "17/2/2022",
-  "19/2/2022",
-  "2/3/2022",
-  "3/3/2022",
-  "4/3/2024",
-  "7/3/2022",
-  "9/3/2023",
-];
-
 const AvailableDays = (props) => {
-  const formattedDates = divideInMonths(availableDates);
+  const formattedDates = divideInMonths(props.availableDates);
 
   const addDay = (date) => {
     const index = props.availableDays.indexOf(date.getTime());
