@@ -6,6 +6,9 @@ import Vote from "./components/routes/Vote";
 import Header from "./components/ui/Header";
 import Results from "./components/routes/Results";
 import CenteredContainer from "./components/container/CenteredContainer";
+import axios from "axios";
+
+axios.defaults.baseURL = 'https://pick-a-day.herokuapp.com';
 
 function App() {
   return (

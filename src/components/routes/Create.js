@@ -8,6 +8,8 @@ import { useNavigate } from "react-router-dom";
 import classes from "./Create.module.css";
 import "../ui/Calendar.css";
 import { dateToFormat } from "../../utils";
+import axios from "axios";
+
 const Create = () => {
   const [eventName, setEventName] = useState("");
   const [eventDays, setEventDays] = useState([]);
@@ -15,10 +17,18 @@ const Create = () => {
   const navigate = useNavigate();
 
   const navigateToVote = () => {
-    console.log("Nome scelto:", eventName);
+
     const formattedDates = eventDays.map(dateToFormat);
-    console.log("Giorni scelti:", formattedDates);
-    // navigate("/vote");
+
+    axios.post('/api/v1/event', {
+      days: formattedDates,
+      name: eventName,
+    }).then(res => {
+      navigate(`/${res.data._id}`)
+    }).catch(error => {
+      console.log(error)
+    });
+
   };
 
   const onClickDayHandler = (date, e) => {
