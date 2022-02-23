@@ -19,7 +19,6 @@ export const createFormattedDate = (day, month, year) =>
 // usata solo per array di date non formattate
 export const divideInMonths = (dates) => {
   if (!Array.isArray(dates)) throw new Error("Array of dates needed");
-  console.log(dates);
   const formattedDates = dates.map(formatToDate);
   const organized = {};
   formattedDates.forEach((date) => {
@@ -33,7 +32,6 @@ export const divideInMonths = (dates) => {
       organized[year][month] = [date.getDate()];
     }
   });
-  console.log(organized);
   return organized;
 };
 

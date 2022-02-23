@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import classes from "./Vote.module.css";
 import Label from "../ui/Label";
 import TextInput from "../ui/TextInput";
@@ -6,7 +6,8 @@ import Button from "../ui/Button";
 import AvailableDays from "../container/AvailableDays";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import { dateToFormat, filterSelected } from "../../utils";
+import { filterSelected } from "../../utils";
+import { useNavigate } from "react-router-dom";
 
 // STRUCTURE
 // const data = {
@@ -36,7 +37,12 @@ const Vote = () => {
   const [sendingData, setSendingData] = useState(false);
   const [ip, setIp] = useState("");
 
+  const navigate = useNavigate();
   const { id } = useParams();
+
+  const navigateToResults = useCallback(() => {
+    navigate(`/${id}/results`);
+  }, [id, navigate]);
 
   //get user ip
   useEffect(() => {
@@ -101,6 +107,7 @@ const Vote = () => {
           .post("/api/v1/partecipants", dataToSend)
           .then((res) => {
             console.log(res.status);
+            navigateToResults();
             setSendingData(false);
             if (localStorage.getItem("eventsList") != null) {
               let newEventList = JSON.parse(localStorage.getItem("eventsList"));
@@ -126,6 +133,7 @@ const Vote = () => {
           })
           .then((res) => {
             setSendingData(false);
+            navigateToResults();
             console.log(res.status);
           })
           .catch((error) => {
@@ -134,11 +142,18 @@ const Vote = () => {
           });
       }
     }
-  }, [chosenDays, hasAlreadyLogged, sendingData, userName, id, ip]);
+  }, [
+    chosenDays,
+    hasAlreadyLogged,
+    sendingData,
+    userName,
+    id,
+    ip,
+    navigateToResults,
+  ]);
 
   const onDayClickHandler = (date) => {
     // toggles the value in the corresponding date
-    console.log(date);
     setChosenDays((prevDays) => {
       const newDays = { ...prevDays };
       newDays[date] = !newDays[date];
@@ -166,7 +181,11 @@ const Vote = () => {
         Send
       </Button>
       <p>or</p>
-      <Button className={classes.resultsButton} isPrimary={false}>
+      <Button
+        className={classes.resultsButton}
+        isPrimary={false}
+        onClick={navigateToResults}
+      >
         Show results
       </Button>
     </div>
