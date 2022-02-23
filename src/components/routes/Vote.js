@@ -48,44 +48,65 @@ const Vote = () => {
     axios.get(`/api/v1/event/${id}`).then(res => {
       setEventName(res.data.name);
       setAvailableDates(res.data.days);
+      if (hasAlreadyLogged) {
+        setChoosenDays(res.data.partecipants[userName])
+      }
     }).catch(error => {
       console.log(error)
     });
-  }, [id]);
+  }, [id, hasAlreadyLogged, userName]);
 
   //updates datas in database
   useEffect(() => {
 
-    if (sendingData) {
+    if (sendingData && typeof choosenDays[0] !== 'string') {
 
       for (let i = 0; i < choosenDays.length; i++) {
         choosenDays[i] = dateToFormat(choosenDays[i]);
       }
 
-      axios.post('/api/v1/partecipants', {
-        ip: ip,
-        name: userName,
-        available: choosenDays,
-        eventId: id
-      }).then(res => {
-        setSendingData(false);
-        if (localStorage.getItem('eventsList') != null) {
-          let newEventList = JSON.parse(localStorage.getItem('eventsList'));
-          newEventList[id] = userName;
-          localStorage.setItem('eventsList', JSON.stringify(newEventList));
-        } else {
-          let newEventList = {};
-          newEventList[id] = userName;
-          localStorage.setItem('eventsList', JSON.stringify(newEventList));
-        }
-        console.log("sfaccim ce l'abbiamo fatta")
-      }).catch(error => {
-        console.log(error);
-        setSendingData(false);
-      });
+      if (!hasAlreadyLogged) {
+
+        axios.post('/api/v1/partecipants', {
+          ip: ip,
+          name: userName,
+          available: choosenDays,
+          eventId: id
+        }).then(res => {
+          setSendingData(false);
+          if (localStorage.getItem('eventsList') != null) {
+            let newEventList = JSON.parse(localStorage.getItem('eventsList'));
+            newEventList[id] = userName;
+            localStorage.setItem('eventsList', JSON.stringify(newEventList));
+          } else {
+            let newEventList = {};
+            newEventList[id] = userName;
+            localStorage.setItem('eventsList', JSON.stringify(newEventList));
+          }
+        }).catch(error => {
+          console.log(error);
+          setSendingData(false);
+        });
+
+      } else {
+
+        axios.patch('/api/v1/partecipants', {
+          ip: ip,
+          name: userName,
+          available: choosenDays,
+          eventId: id
+        }).then(res => {
+          setSendingData(false);
+        }).catch(error => {
+          console.log(error);
+          setSendingData(false);
+        });
+
+      }
+
     }
 
-  }, [sendingData, setSendingData, choosenDays, eventName, ip, id, userName]);
+  }, [choosenDays, hasAlreadyLogged, sendingData, userName, id, ip]);
 
   return (
     <div className={classes.container}>
