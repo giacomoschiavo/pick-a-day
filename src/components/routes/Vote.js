@@ -8,20 +8,21 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import { dateToFormat, filterSelected } from "../../utils";
 
-const data = {
-  name: "event name",
-  days: [
-    "16/2/2022",
-    "24/2/2022",
-    "25/2/2022",
-    "11/2/2022",
-    "18/3/2022",
-    "17/3/2022",
-  ],
-  partecipants: {
-    Giacomo: ["16/2/2022", "18/3/2022"],
-  },
-};
+// STRUCTURE
+// const data = {
+//   name: "event name",
+//   days: [
+//     "16/2/2022",
+//     "24/2/2022",
+//     "25/2/2022",
+//     "11/2/2022",
+//     "18/3/2022",
+//     "17/3/2022",
+//   ],
+//   partecipants: {
+//     Giacomo: ["16/2/2022", "18/3/2022"],
+//   },
+// };
 
 // le date sono passate ai figli con questa struttura
 // {"16/2/2022": true, "24/2/2022": false, etc} dove il booleano
@@ -30,7 +31,6 @@ const data = {
 const Vote = () => {
   const [hasAlreadyLogged, setHasAlreadyLogged] = useState(false);
   const [chosenDays, setChosenDays] = useState({});
-  const [availableDates, setAvailableDates] = useState([]);
   const [userName, setUserName] = useState("");
   const [eventName, setEventName] = useState("");
   const [sendingData, setSendingData] = useState(false);
@@ -67,7 +67,6 @@ const Vote = () => {
       .then((res) => {
         // console.log(res.data);
         setEventName(res.data.name);
-        setAvailableDates(res.data.days);
         // crea oggetto date, nessuna data e' selezionata di default
         const newChosenDays = res.data.days.reduce((obj, day) => {
           obj[day] = false;
@@ -101,6 +100,7 @@ const Vote = () => {
         axios
           .post("/api/v1/partecipants", dataToSend)
           .then((res) => {
+            console.log(res.status);
             setSendingData(false);
             if (localStorage.getItem("eventsList") != null) {
               let newEventList = JSON.parse(localStorage.getItem("eventsList"));
@@ -126,6 +126,7 @@ const Vote = () => {
           })
           .then((res) => {
             setSendingData(false);
+            console.log(res.status);
           })
           .catch((error) => {
             console.log(error);
@@ -137,12 +138,12 @@ const Vote = () => {
 
   const onDayClickHandler = (date) => {
     // toggles the value in the corresponding date
+    console.log(date);
     setChosenDays((prevDays) => {
       const newDays = { ...prevDays };
       newDays[date] = !newDays[date];
       return newDays;
     });
-    console.log(chosenDays);
   };
 
   return (

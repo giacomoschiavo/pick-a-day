@@ -19,21 +19,21 @@ export const createFormattedDate = (day, month, year) =>
 // usata solo per array di date non formattate
 export const divideInMonths = (dates) => {
   if (!Array.isArray(dates)) throw new Error("Array of dates needed");
+  console.log(dates);
   const formattedDates = dates.map(formatToDate);
   const organized = {};
   formattedDates.forEach((date) => {
     const year = date.getFullYear();
-    const month = date.toLocaleString("default", { month: "long" });
-    const capitalCaseMonth = month.charAt(0).toUpperCase() + month.slice(1);
+    const month = date.getMonth() + 1;
     if (organized[year]) {
-      if (organized[year][capitalCaseMonth])
-        organized[year][capitalCaseMonth].push(date.getDate());
-      else organized[year][capitalCaseMonth] = [date.getDate()];
+      if (organized[year][month]) organized[year][month].push(date.getDate());
+      else organized[year][month] = [date.getDate()];
     } else {
       organized[year] = {};
-      organized[year][capitalCaseMonth] = [date.getDate()];
+      organized[year][month] = [date.getDate()];
     }
   });
+  console.log(organized);
   return organized;
 };
 
@@ -42,4 +42,10 @@ export const filterSelected = (dateObj) => {
     if (dateObj[date]) arr.push(date);
     return arr;
   }, []);
+};
+
+export const getCapitalLetterMonth = (n) => {
+  const date = new Date(`${n}/1/2022`);
+  const month = date.toLocaleString("default", { month: "long" });
+  return month.charAt(0).toUpperCase() + month.slice(1);
 };
