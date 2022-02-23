@@ -6,7 +6,7 @@ import Button from "../ui/Button";
 import AvailableDays from "../container/AvailableDays";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import { dateToFormat } from "../../utils";
+import { dateToFormat, filterSelected } from "../../utils";
 
 const data = {
   name: "event name",
@@ -94,9 +94,10 @@ const Vote = () => {
         const dataToSend = {
           ip: ip,
           name: userName,
-          available: Object.keys(chosenDays),
+          available: filterSelected(chosenDays),
           eventId: id,
         };
+        console.log(dataToSend);
         axios
           .post("/api/v1/partecipants", dataToSend)
           .then((res) => {
@@ -120,7 +121,7 @@ const Vote = () => {
           .patch("/api/v1/partecipants", {
             ip: ip,
             name: userName,
-            available: Object.keys(chosenDays),
+            available: filterSelected(chosenDays),
             eventId: id,
           })
           .then((res) => {

@@ -36,3 +36,10 @@ export const divideInMonths = (dates) => {
   });
   return organized;
 };
+
+export const filterSelected = (dateObj) => {
+  return Object.keys(dateObj).reduce((arr, date) => {
+    if (dateObj[date]) arr.push(date);
+    return arr;
+  }, []);
+};

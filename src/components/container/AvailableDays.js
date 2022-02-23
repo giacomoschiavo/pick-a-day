@@ -9,9 +9,7 @@ const createFormattedDate = (d, m, y) =>
   dateToFormat(new Date(`${m}/${d}/${y}`));
 
 const AvailableDays = (props) => {
-  console.log(props.chosenDays);
   const formattedDates = divideInMonths(Object.keys(props.chosenDays));
-  console.log(formattedDates);
 
   // const addDay = (date) => {
   //   const index = props.choosenDays.indexOf(date.getTime());
