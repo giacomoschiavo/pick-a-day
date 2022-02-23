@@ -21,7 +21,7 @@ const ResultTab = (props) => {
         </div>
         <p>{props.date || "No date"}</p>
         {!props.success && (
-          <div className={classes.participants}>
+          <div className={classes.partecipants}>
             <p>{props.ratio}</p>
           </div>
         )}

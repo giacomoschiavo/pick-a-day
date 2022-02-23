@@ -16,7 +16,7 @@ import classes from "./Results.module.css";
 //     "7/2/2022",
 //     "8/2/2022",
 //   ],
-//   participants: {
+//   partecipants: {
 //     gigi: ["2/2/2022", "3/2/2022", "4/2/2022", "5/2/2022"],
 //     lado: ["1/2/2022", "4/2/2022", "7/2/2022"],
 //     berto: ["2/2/2022", "3/2/2022", "4/2/2022", "8/2/2022"],
@@ -24,34 +24,55 @@ import classes from "./Results.module.css";
 //     sarto: ["1/2/2022", "3/2/2022", "4/2/2022", "5/2/2022"],
 //   },
 // };
+let data = {
+  name: "Scusa, un altro test xd",
+  days: [
+    "7/2/2022",
+    "8/2/2022",
+    "9/2/2022",
+    "15/2/2022",
+    "16/2/2022",
+    "17/2/2022",
+    "1/3/2022",
+    "2/3/2022",
+    "3/3/2022",
+  ],
+  partecipants: {
+    Giacomo: ["7/2/2022", "8/2/2022", "9/2/2022", "17/2/2022", "2/3/2022"],
+  },
+};
+
+// id: 6215f49513d83ffc9834c1ba
 
 const extractResultsFromData = (data) => {
   return data.days.map((day) => {
     return {
       date: day,
-      nonParts: Object.keys(data.participants).reduce((arr, partecipant) => {
-        if (!data.participants[partecipant].find((date) => date === day))
+      nonParts: Object.keys(data.partecipants).reduce((arr, partecipant) => {
+        if (!data.partecipants[partecipant].find((date) => date === day))
           arr.push(partecipant);
         return arr;
       }, []),
-      tot: Object.keys(data.participants).length,
+      tot: Object.keys(data.partecipants).length,
     };
   });
 };
 
 const Results = () => {
-
   const { id } = useParams();
 
   const [results, setResults] = useState([]);
   const [data, setData] = useState({});
 
   useEffect(() => {
-    axios.get(`/api/v1/event/${id}`)
+    axios
+      .get(`/api/v1/event/${id}`)
       .then(function (response) {
+        console.log(response.data);
         setData(response.data);
         const result = extractResultsFromData(response.data);
         setResults(result);
+        console.log(result);
       })
       .catch(function (error) {
         console.log(error);
