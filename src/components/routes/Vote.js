@@ -76,11 +76,12 @@ const Vote = () => {
         } else {
           let newEventList = {};
           newEventList[id] = userName;
-          localStorage.setItem('eventsList', newEventList);
+          localStorage.setItem('eventsList', JSON.stringify(newEventList));
         }
         console.log("sfaccim ce l'abbiamo fatta")
       }).catch(error => {
-        console.log(error)
+        console.log(error);
+        setSendingData(false);
       });
     }
 
