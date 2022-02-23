@@ -1,20 +1,18 @@
-import React, { useState } from "react";
+import React from "react";
 import classes from "./Day.module.css";
 
 const Day = (props) => {
-  const [selected, setSelected] = useState(false);
-
   const onClickHandler = () => {
-    setSelected((prev) => !prev);
-    props.addDay(props.date);
+    // props.addDay(props.date);
+    props.onDayClick(props.date);
   };
 
   return (
     <div
-      className={`${classes.container} ${selected && classes.selected}`}
+      className={`${classes.container} ${props.selected && classes.selected}`}
       onClick={onClickHandler}
     >
-      <p>{props.children}</p>
+      <p>{props.value}</p>
     </div>
   );
 };

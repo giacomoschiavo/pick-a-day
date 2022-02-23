@@ -7,14 +7,16 @@ export const formatToDate = (dateString) => {
   if (typeof dateString !== "string") throw new Error("String date needed");
   if (!dateString.split("/")) return dateString;
   const [day, month, year] = dateString.split("/");
-  return new Date(`${month}/${day}&${year}`);
+  return new Date(`${month}/${day}/${year}`);
 };
 
-export const createDate = (day, month, year) => {
-  return new Date(`${day}/${month}/${year}`);
-};
+export const createDate = (day, month, year) =>
+  new Date(`${day}/${month}/${year}`);
 
-// usata solo per array di date
+export const createFormattedDate = (day, month, year) =>
+  `${day}/${month}/${year}`;
+
+// usata solo per array di date non formattate
 export const divideInMonths = (dates) => {
   if (!Array.isArray(dates)) throw new Error("Array of dates needed");
   const formattedDates = dates.map(formatToDate);
