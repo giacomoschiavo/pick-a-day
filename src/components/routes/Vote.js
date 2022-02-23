@@ -9,22 +9,6 @@ import { useParams } from "react-router-dom";
 import { filterSelected } from "../../utils";
 import { useNavigate } from "react-router-dom";
 
-// STRUCTURE
-// const data = {
-//   name: "event name",
-//   days: [
-//     "16/2/2022",
-//     "24/2/2022",
-//     "25/2/2022",
-//     "11/2/2022",
-//     "18/3/2022",
-//     "17/3/2022",
-//   ],
-//   partecipants: {
-//     Giacomo: ["16/2/2022", "18/3/2022"],
-//   },
-// };
-
 // le date sono passate ai figli con questa struttura
 // {"16/2/2022": true, "24/2/2022": false, etc} dove il booleano
 // indica se la data e' stata selezionata
