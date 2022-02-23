@@ -35,9 +35,9 @@ const Vote = () => {
   useEffect(() => {
 
     if (localStorage.getItem('eventsList') != null) {
-      if (localStorage.getItem('eventsList')[id] != null) {
+      if (JSON.parse(localStorage.getItem('eventsList'))[id] != null) {
         setHasAlreadyLogged(true);
-        setUserName(localStorage.getItem('eventsList')[id]);
+        setUserName(JSON.parse(localStorage.getItem('eventsList'))[id]);
       }
     }
 
@@ -70,9 +70,9 @@ const Vote = () => {
       }).then(res => {
         setSendingData(false);
         if (localStorage.getItem('eventsList') != null) {
-          let newEventList = localStorage.getItem('eventsList');
+          let newEventList = JSON.parse(localStorage.getItem('eventsList'));
           newEventList[id] = userName;
-          localStorage.setItem('eventsList', newEventList);
+          localStorage.setItem('eventsList', JSON.stringify(newEventList));
         } else {
           let newEventList = {};
           newEventList[id] = userName;
