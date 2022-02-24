@@ -8,16 +8,16 @@ const TextInput = (props) => {
   };
 
   return (
-    <div className={classes.group}>
+    <div className={classes.container}>
       <input
         type="text"
         value={props.value}
-        disabled={props.disabled}
+        disabled={false}
         onChange={onChangeHandler}
+        className={classes.input}
+        placeholder={"Your name"}
         required
       />
-      <span className={classes.highlight} />
-      <span className={classes.bar} />
     </div>
   );
 };

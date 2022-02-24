@@ -1,6 +1,6 @@
 import React from "react";
 import classes from "./AvailableDays.module.css";
-import Label from "../ui/Label";
+// import Label from "../ui/Label";
 import Day from "../ui/Day";
 import { divideInMonths, getCapitalLetterMonth } from "../../utils";
 
@@ -11,9 +11,7 @@ const AvailableDays = (props) => {
       {Object.keys(formattedDates).map((year) =>
         Object.keys(formattedDates[year]).map((month) => (
           <div className={classes.monthContainer} key={month}>
-            <Label className={classes.label}>
-              {getCapitalLetterMonth(month)}
-            </Label>
+            <p className={classes.label}>{getCapitalLetterMonth(month)}</p>
             <div className={classes.days}>
               {formattedDates[year][month].map((day) => (
                 <Day

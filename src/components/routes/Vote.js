@@ -8,6 +8,7 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import { filterSelected } from "../../utils";
 import { useNavigate } from "react-router-dom";
+import Section from "../container/Section";
 
 // le date sono passate ai figli con questa struttura
 // {"16/2/2022": true, "24/2/2022": false, etc} dove il booleano
@@ -147,14 +148,17 @@ const Vote = () => {
 
   return (
     <div className={classes.container}>
-      <Label>What's your name?</Label>
-      <TextInput
-        value={userName}
-        disabled={hasAlreadyLogged}
-        setValue={setUserName}
-      />
-      <Label>When are you available for "{eventName}" ?</Label>
-      <AvailableDays onDayClick={onDayClickHandler} chosenDays={chosenDays} />
+      <Label>{eventName}</Label>
+      <Section label="What is your name?">
+        <TextInput
+          value={userName}
+          disabled={hasAlreadyLogged}
+          setValue={setUserName}
+        />
+      </Section>
+      <Section label="Choose your days:">
+        <AvailableDays onDayClick={onDayClickHandler} chosenDays={chosenDays} />
+      </Section>
       <Button
         className={classes.sendButton}
         onClick={() => {
@@ -162,7 +166,7 @@ const Vote = () => {
           setSendingData(true);
         }}
       >
-        Send
+        Vote
       </Button>
       <p>or</p>
       <Button

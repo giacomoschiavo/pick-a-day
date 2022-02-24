@@ -1,7 +1,11 @@
 .label {
   text-align: center;
-  font-weight: bolder;
-  opacity: 0.7;
-  font-size: 1.8rem;
-  margin: 20px 0;
+  /* font-weight: bold; */
+  font-size: 1rem;
+  margin: 10px 0;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 24px;
+  color: rgba(0, 0, 0, 0.5);
 }

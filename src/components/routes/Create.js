@@ -1,14 +1,14 @@
 import React from "react";
-import Button from "../ui/Button";
 import { useState } from "react";
-import Label from "../ui/Label";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import Button from "../ui/Button";
 import Calendar from "react-calendar";
 import TextInput from "../ui/TextInput";
-import { useNavigate } from "react-router-dom";
-import classes from "./Create.module.css";
+import Section from "../container/Section";
 import "../ui/Calendar.css";
 import { dateToFormat } from "../../utils";
-import axios from "axios";
+import classes from "./Create.module.css";
 
 const Create = () => {
   const [eventName, setEventName] = useState("");
@@ -17,18 +17,19 @@ const Create = () => {
   const navigate = useNavigate();
 
   const navigateToVote = () => {
-
     const formattedDates = eventDays.map(dateToFormat);
 
-    axios.post('/api/v1/event', {
-      days: formattedDates,
-      name: eventName,
-    }).then(res => {
-      navigate(`/${res.data._id}`)
-    }).catch(error => {
-      console.log(error)
-    });
-
+    axios
+      .post("/api/v1/event", {
+        days: formattedDates,
+        name: eventName,
+      })
+      .then((res) => {
+        navigate(`/${res.data._id}`);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   const onClickDayHandler = (date, e) => {
@@ -51,18 +52,21 @@ const Create = () => {
   };
 
   return (
-    <>
-      <Label>What's the event name?</Label>
-      <TextInput value={eventName} setValue={setEventName} />
-      <Label>When?</Label>
-      <Calendar
-        tileClassName={(date) => getTileClassName(date)}
-        onClickDay={onClickDayHandler}
-      />
+    <div className={classes.container}>
+      <Section label="What's the event name?">
+        <TextInput value={eventName} setValue={setEventName} />
+      </Section>
+      <Section label="When?">
+        <Calendar
+          tileClassName={(date) => getTileClassName(date)}
+          onClickDay={onClickDayHandler}
+          className={classes.calendar}
+        />
+      </Section>
       <Button className={classes.createButton} onClick={navigateToVote}>
         Create
       </Button>
-    </>
+    </div>
   );
 };
 
