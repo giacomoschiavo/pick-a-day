@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import EventBanner from "../ui/EventBanner";
 import Label from "../ui/Label";
 import ResultTab from "../ui/ResultTab";
 import classes from "./Results.module.css";
@@ -42,6 +43,7 @@ const Results = () => {
 
   return (
     <div className={classes.container}>
+      <EventBanner eventName={data.name} />
       <Label>Results for {data.name}</Label>
       <div className={classes.resultsTab}>
         {results.map(
