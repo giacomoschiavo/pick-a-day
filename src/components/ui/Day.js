@@ -1,5 +1,28 @@
 import React from "react";
-import classes from "./Day.module.css";
+import styled, { css } from "styled-components";
+import { Colors } from "../../utils";
+
+const Div = styled.div`
+  width: 3.8rem;
+  height: 3.8rem;
+  background: ${Colors.white};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 15px;
+  transition: 0.2s;
+  font-size: 1.5rem;
+  box-shadow: 0px 4px 4px 2px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+
+  ${(props) =>
+    props.selected &&
+    css`
+      box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.4);
+      background: ${Colors.primary};
+      transition-duration: 0.8s;
+    `}
+`;
 
 const Day = (props) => {
   const onClickHandler = () => {
@@ -7,14 +30,9 @@ const Day = (props) => {
   };
 
   return (
-    <div
-      className={`${props.className} ${classes.container} ${
-        props.selected && classes.selected
-      }`}
-      onClick={onClickHandler}
-    >
+    <Div onClick={onClickHandler} selected={props.selected}>
       <p>{props.value}</p>
-    </div>
+    </Div>
   );
 };
 

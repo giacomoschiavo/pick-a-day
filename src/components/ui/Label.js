@@ -1,9 +1,20 @@
 import React from "react";
-import classes from "./Label.module.css";
+import styled from "styled-components";
+import { Colors } from "../../utils";
+
+const P = styled.p`
+  text-align: center;
+  color: ${Colors.black};
+  font-weight: bolder;
+  font-size: 1.3rem;
+  margin: 10px 0;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 24px;
+`;
+
 const Label = (props) => {
-  return (
-    <p className={`${props.className} ${classes.label}`}>{props.children}</p>
-  );
+  return <P>{props.children}</P>;
 };
 
 export default Label;

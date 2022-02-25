@@ -1,4 +1,6 @@
 .container {
+  padding-top: 10%;
+  align-self: center;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -22,7 +24,7 @@
 
 .calendar {
   border: 1px solid black;
-  width: 90%;
+  width: 22rem;
   background-color: white;
   padding: 5px;
 }

@@ -47,3 +47,11 @@ export const getCapitalLetterMonth = (n) => {
   const month = date.toLocaleString("default", { month: "long" });
   return month.charAt(0).toUpperCase() + month.slice(1);
 };
+
+export const Colors = {
+  white: "#F7F5FB",
+  black: "#1F2421",
+  primary: "#94D4FF",
+  grey: "#9E8576",
+  // transparentPrimary: "rgba(39, 93, 173, 0.5)",
+};
