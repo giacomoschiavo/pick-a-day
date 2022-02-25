@@ -21,6 +21,8 @@ const Create = () => {
   const navigate = useNavigate();
 
   const navigateToVote = async () => {
+    // TODO: controllo lunghezza nome evento ( > 3 e < 25)
+
     if (eventName.trim() === "") {
       setError("Please, choose a name for the event🗒️");
       setShowPopup(true);
