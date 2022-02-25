@@ -8,7 +8,9 @@ const Day = (props) => {
 
   return (
     <div
-      className={`${classes.container} ${props.selected && classes.selected}`}
+      className={`${props.className} ${classes.container} ${
+        props.selected && classes.selected
+      }`}
       onClick={onClickHandler}
     >
       <p>{props.value}</p>

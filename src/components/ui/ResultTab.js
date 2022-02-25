@@ -1,6 +1,8 @@
 import { useState } from "react";
-import { BsHandThumbsDown, BsHandThumbsUp } from "react-icons/bs";
+import Day from "./Day";
 import classes from "./ResultTab.module.css";
+import { getCapitalLetterMonth } from "../../utils";
+import { BiChevronDown } from "react-icons/bi";
 
 const ResultTab = (props) => {
   const [show, setShow] = useState(false);
@@ -12,21 +14,21 @@ const ResultTab = (props) => {
   return (
     <>
       <div className={classes.container} onClick={clicked}>
-        <div
-          className={`${classes.icon} ${
-            props.success === true && classes.success
-          }`}
-        >
-          {props.success ? <BsHandThumbsUp /> : <BsHandThumbsDown />}
+        <div className={classes.date}>
+          <Day
+            value={props.date.getDate()}
+            className={classes.day}
+            onDayClick={() => {}}
+          />
+          <p className={classes.month}>
+            {getCapitalLetterMonth(props.date.getMonth())}
+          </p>
         </div>
-        <p>{props.date || "No date"}</p>
-        {!props.success && (
-          <div className={classes.partecipants}>
-            <p>{props.ratio}</p>
-          </div>
-        )}
+        <div className={`${classes.iconContainer} ${show && classes.rotated}`}>
+          <BiChevronDown className={classes.icon} />
+        </div>
       </div>
-      {!props.success && show && (
+      {show && (
         <div className={classes.list}>
           {props.nonParts &&
             props.nonParts.map((part, i) => <p key={i}>{part}</p>)}

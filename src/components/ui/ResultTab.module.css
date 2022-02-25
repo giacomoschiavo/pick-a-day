@@ -1,39 +1,65 @@
 .container {
+  box-sizing: border-box;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  border: 1px solid black;
   border-radius: 20px;
   padding: 15px;
   cursor: pointer;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  margin: 5px 0;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
+
+.date {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex: 2;
+}
+
+.day {
+  box-shadow: none;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  transform: scale(0.8);
+}
+
+.month {
+  margin: 0 10px;
+}
+
+.icon {
+  opacity: .8;
+  font-size: 2rem;
 }
 
 .list {
   transition: .4s;
   display: flex;
   flex-direction: column;
-  width: 50%;
   align-items: center;
-  padding-top: 30px;
-  padding-bottom: 10px;
-  border: 1px solid black;
+  border: 1px solid;
+  /* padding-top: 30px;
+  padding-bottom: 10px; */
   border-radius: 20px;
-  transform: translate(70%, -12%);
+  /* transform: translate(70%, -12%); */
 }
 
-.list>p {
+/* .list>p {
   margin: 8px 0;
-}
+} */
 
-.icon {
+.iconContainer {
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid black;
-  border-radius: 50%;
-  padding: 15px;
-  background-color: #ff9393;
+}
+
+.rotated {
+  transition: .3s;
+  transform: rotate(180deg);
 }
 
 .success {
