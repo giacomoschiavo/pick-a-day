@@ -17,8 +17,12 @@ const Div = styled.div`
   border-radius: 20px;
 
   &:active {
-    transition-duration: 0.8s;
+    transition: 0.8s;
     box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.4);
+  }
+
+  &:hover {
+    box-shadow: none;
   }
 
   ${(props) =>
@@ -34,7 +38,11 @@ const Div = styled.div`
 
 const Button = (props) => {
   return (
-    <Div isPrimary={props.isPrimary} onClick={props.onClick}>
+    <Div
+      isPrimary={props.isPrimary}
+      onClick={props.onClick}
+      className={props.className}
+    >
       {props.children || props.value}
     </Div>
   );

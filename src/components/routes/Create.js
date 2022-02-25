@@ -9,10 +9,12 @@ import Section from "../container/Section";
 import "../ui/Calendar.css";
 import { dateToFormat } from "../../utils";
 import classes from "./Create.module.css";
+import Popup from "../ui/Popup";
 
 const Create = () => {
   const [eventName, setEventName] = useState("");
   const [eventDays, setEventDays] = useState([]);
+  const [showPopup, setShowPopup] = useState(true);
 
   const navigate = useNavigate();
 
@@ -52,21 +54,26 @@ const Create = () => {
   };
 
   return (
-    <div className={classes.container}>
-      <Section label="What's the event name?">
-        <TextInput value={eventName} setValue={setEventName} />
-      </Section>
-      <Section label="When?">
-        <Calendar
-          tileClassName={(date) => getTileClassName(date)}
-          onClickDay={onClickDayHandler}
-          className={classes.calendar}
-        />
-      </Section>
-      <Button className={classes.createButton} onClick={navigateToVote}>
-        Create
-      </Button>
-    </div>
+    <>
+      <div className={classes.container}>
+        <Section label="What's the event name?">
+          <TextInput value={eventName} setValue={setEventName} />
+        </Section>
+        <Section label="When?">
+          <Calendar
+            tileClassName={(date) => getTileClassName(date)}
+            onClickDay={onClickDayHandler}
+            className={classes.calendar}
+          />
+        </Section>
+        <Button className={classes.createButton} onClick={navigateToVote}>
+          Create
+        </Button>
+      </div>
+      {showPopup && (
+        <Popup closePopup={() => setShowPopup(false)}>WEEEEEEEEEEEEEE</Popup>
+      )}
+    </>
   );
 };
 
