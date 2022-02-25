@@ -9,6 +9,7 @@ import { filterSelected } from "../../utils";
 import { useNavigate } from "react-router-dom";
 import Section from "../container/Section";
 import EventBanner from "../ui/EventBanner";
+import Share from "../ui/Share";
 
 // le date sono passate ai figli con questa struttura
 // {"16/2/2022": true, "24/2/2022": false, etc} dove il booleano
@@ -177,6 +178,7 @@ const Vote = () => {
       >
         Show results
       </Button>
+      <Share url={`pickaday.io/${id}`} />
     </div>
   );
 };

@@ -54,7 +54,7 @@ const Create = () => {
   return (
     <div className={classes.container}>
       <Section label="What's the event name?">
-        <TextInput value={eventName} setValue={setEventName} />
+        <TextInput value={eventName} setValue={setEventName} placeholder="Event name" />
       </Section>
       <Section label="When?">
         <Calendar

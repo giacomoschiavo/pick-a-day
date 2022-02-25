@@ -6,6 +6,8 @@ import ResultTab from "../ui/ResultTab";
 import Section from "../container/Section";
 import classes from "./Results.module.css";
 import { formatToDate } from "../../utils";
+import Share from "../ui/Share";
+
 const extractResultsFromData = (data) => {
   return data.days.map((day) => {
     return {
@@ -71,6 +73,7 @@ const Results = () => {
           )}
         </Section>
       </div>
+      <Share url={`pickaday.io/${id}`} />
     </div>
   );
 };

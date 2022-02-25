@@ -5,7 +5,7 @@ import { Colors } from "../../utils";
 const Div = styled.div`
   box-sizing: border-box;
   width: fit-content;
-  background-color: ${Colors.black};
+  background-color: ${Colors.primary};
   padding: 15px;
   padding-left: 40px;
   padding-right: 40px;
@@ -34,7 +34,7 @@ const Div = styled.div`
 
 const Button = (props) => {
   return (
-    <Div isPrimary={props.isPrimary} onClick={props.onClick}>
+    <Div isPrimary={props.isPrimary} onClick={props.onClick} className={props.className}>
       {props.children || props.value}
     </Div>
   );

@@ -38,9 +38,9 @@ const TextInput = (props) => {
       <Input
         type="text"
         value={props.value}
-        disabled={false}
+        disabled={props.disabled}
         onChange={onChangeHandler}
-        placeholder={"Your name"}
+        placeholder={props.placeholder}
         required
       />
     </Div>
