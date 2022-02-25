@@ -21,7 +21,6 @@ const Vote = () => {
   const [eventName, setEventName] = useState("");
   const [sendingData, setSendingData] = useState(false);
   const [ip, setIp] = useState("");
-  const [error, setError] = useState("");
 
   const navigate = useNavigate();
   const { id } = useParams();
@@ -39,7 +38,6 @@ const Vote = () => {
       })
       .catch((err) => {
         console.log(err);
-        setError(err);
       });
   }, []);
 
@@ -76,7 +74,6 @@ const Vote = () => {
       })
       .catch((error) => {
         console.log(error);
-        setError(error);
       });
   }, [id, hasAlreadyLogged, userName]);
 
@@ -110,7 +107,6 @@ const Vote = () => {
           .catch((error) => {
             console.log(error);
             setSendingData(false);
-            setError(error);
           });
       } else {
         axios
@@ -128,7 +124,6 @@ const Vote = () => {
           .catch((error) => {
             console.log(error);
             setSendingData(false);
-            setError(error);
           });
       }
     }
