@@ -11,6 +11,17 @@ const ResultTab = (props) => {
     setShow((prev) => !prev);
   };
 
+  let availableParts = props.parts;
+  let notAvailParts = null;
+  if (props.nonParts) {
+    // tieni i partecipanti che non sono presenti in nonPart
+    availableParts = availableParts.filter(
+      (part) => props.nonParts.find((nonPart) => nonPart === part) === undefined
+    );
+    availableParts = availableParts.length === 0 ? null : availableParts;
+    notAvailParts = props.nonParts;
+  }
+
   return (
     <>
       <div className={classes.container} onClick={clicked}>
@@ -30,8 +41,24 @@ const ResultTab = (props) => {
       </div>
       {show && (
         <div className={classes.list}>
-          {props.nonParts &&
-            props.nonParts.map((part, i) => <p key={i}>{part}</p>)}
+          {availableParts && (
+            <div className={classes.parts}>
+              {availableParts.map((part, i) => (
+                <p className={classes.part} key={i}>
+                  ✅ {part}
+                </p>
+              ))}
+            </div>
+          )}
+          {notAvailParts && (
+            <div className={classes.parts}>
+              {notAvailParts.map((part, i) => (
+                <p className={classes.part} key={i}>
+                  ❌ {part}
+                </p>
+              ))}
+            </div>
+          )}
         </div>
       )}
     </>

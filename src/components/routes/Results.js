@@ -29,11 +29,9 @@ const Results = () => {
     axios
       .get(`/api/v1/event/${id}`)
       .then(function (response) {
-        console.log(response.data);
         setData(response.data);
         const result = extractResultsFromData(response.data);
         setResults(result);
-        console.log(result);
       })
       .catch(function (error) {
         console.log(error);
@@ -44,21 +42,29 @@ const Results = () => {
     <div className={classes.container}>
       <EventBanner eventName={data.name} />
       <div className={classes.resultsContainer}>
-        <Section label="These days are perfect! 🎉">
+        <Section className={classes.section} label="These days are perfect! 🎉">
           {results.map(
             (obj) =>
               obj.nonParts.length === 0 && (
-                <ResultTab key={obj.date} date={formatToDate(obj.date)} />
+                <ResultTab
+                  key={obj.date}
+                  date={formatToDate(obj.date)}
+                  parts={Object.keys(data.partecipants)}
+                />
               )
           )}
         </Section>
-        <Section label="Someone's missing these days😢">
+        <Section
+          className={classes.section}
+          label="Someone's missing these days😢"
+        >
           {results.map(
             (obj) =>
               obj.nonParts.length > 0 && (
                 <ResultTab
                   key={obj.date}
                   nonParts={obj.nonParts}
+                  parts={Object.keys(data.partecipants)}
                   date={formatToDate(obj.date)}
                 />
               )

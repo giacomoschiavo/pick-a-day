@@ -8,5 +8,11 @@
 .resultsContainer {
   display: flex;
   flex-direction: column;
-  max-width: 90%;
+  align-items: center;
+  max-width: 80%;
+  width: 80%;
+}
+
+.section {
+  width: 90%;
 }
