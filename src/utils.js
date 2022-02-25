@@ -1,3 +1,11 @@
+export const Colors = {
+  white: "#F7F5FB",
+  black: "#1F2421",
+  primary: "#94D4FF",
+  grey: "#9E8576",
+  // transparentPrimary: "rgba(39, 93, 173, 0.5)",
+};
+
 export const dateToFormat = (date) => {
   const day = new Date(date);
   return `${day.getDate()}/${day.getMonth() + 1}/${day.getFullYear()}`;
@@ -48,10 +56,15 @@ export const getCapitalLetterMonth = (n) => {
   return month.charAt(0).toUpperCase() + month.slice(1);
 };
 
-export const Colors = {
-  white: "#F7F5FB",
-  black: "#1F2421",
-  primary: "#94D4FF",
-  grey: "#9E8576",
-  // transparentPrimary: "rgba(39, 93, 173, 0.5)",
+export const checkPreviousDays = (days) => {
+  // days = [ 1645657200000, 1645743600000]
+  const actualTime = new Date();
+  // parte da mezzanotte, il giorno stesso puo essere programmato
+  const today = new Date(
+    `${
+      actualTime.getMonth() + 1
+    }/${actualTime.getDate()}/${actualTime.getFullYear()}`
+  ).getTime();
+  // ritorna true se almeno un giorno e' precedente a questo
+  return days.some((day) => day < today);
 };

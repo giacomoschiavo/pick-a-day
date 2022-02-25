@@ -7,31 +7,52 @@ import Calendar from "react-calendar";
 import TextInput from "../ui/TextInput";
 import Section from "../container/Section";
 import "../ui/Calendar.css";
-import { dateToFormat } from "../../utils";
+import { dateToFormat, checkPreviousDays } from "../../utils";
 import classes from "./Create.module.css";
 import Popup from "../ui/Popup";
 
 const Create = () => {
   const [eventName, setEventName] = useState("");
   const [eventDays, setEventDays] = useState([]);
-  const [showPopup, setShowPopup] = useState(true);
+
+  const [showPopup, setShowPopup] = useState(false);
+  const [error, setError] = useState("");
 
   const navigate = useNavigate();
 
-  const navigateToVote = () => {
-    const formattedDates = eventDays.map(dateToFormat);
+  const navigateToVote = async () => {
+    if (eventName.trim() === "") {
+      setError("Please, choose a name for the event🗒️");
+      setShowPopup(true);
+      return;
+    }
+    if (eventDays.length < 2) {
+      setError("Please, choose at least two days🎲");
+      setShowPopup(true);
+      return;
+    }
+    if (eventDays.length > 14) {
+      setError("Please, you can maximum 14 days📅");
+      setShowPopup(true);
+      return;
+    }
+    if (checkPreviousDays(eventDays)) {
+      setError("Please, choose future dates🔮");
+      setShowPopup(true);
+      return;
+    }
 
-    axios
-      .post("/api/v1/event", {
+    const formattedDates = eventDays.map(dateToFormat);
+    try {
+      const res = await axios.post("/api/v1/event", {
         days: formattedDates,
         name: eventName,
-      })
-      .then((res) => {
-        navigate(`/${res.data._id}`);
-      })
-      .catch((error) => {
-        console.log(error);
       });
+      navigate(`/${res.data._id}`);
+    } catch (error) {
+      setError(error.response.data.msg);
+      setShowPopup(true);
+    }
   };
 
   const onClickDayHandler = (date, e) => {
@@ -71,7 +92,7 @@ const Create = () => {
         </Button>
       </div>
       {showPopup && (
-        <Popup closePopup={() => setShowPopup(false)}>WEEEEEEEEEEEEEE</Popup>
+        <Popup closePopup={() => setShowPopup(false)}>{error}</Popup>
       )}
     </>
   );
