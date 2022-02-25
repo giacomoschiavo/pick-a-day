@@ -1,24 +1,26 @@
 .container {
   display: flex;
   flex-direction: column;
+  align-items: center;
   max-width: 95%;
 }
 
 .monthContainer {
-  margin: 10px 0;
   border: 1px solid rgba(0, 0, 0, 0.2);
   box-sizing: border-box;
+  width: 22rem;
   /* filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.25)); */
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
   border-radius: 20px;
   padding: 10px;
+  margin: 10px 0;
 }
 
 .label {
   text-align: center;
-  opacity: 1;
+  opacity: 0.6;
   margin: 0;
-  margin-top: 10px;
+  margin: 10px 0;
   font-size: 1.3rem;
 }
 
@@ -27,9 +29,4 @@
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
-  margin: 0 auto;
-}
-
-.days>div {
-  margin: 10px;
 }

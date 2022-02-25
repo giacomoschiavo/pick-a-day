@@ -1,6 +1,5 @@
 import React from "react";
 import classes from "./AvailableDays.module.css";
-// import Label from "../ui/Label";
 import Day from "../ui/Day";
 import { divideInMonths, getCapitalLetterMonth } from "../../utils";
 
@@ -16,6 +15,7 @@ const AvailableDays = (props) => {
               {formattedDates[year][month].map((day) => (
                 <Day
                   key={day}
+                  gap={10}
                   date={`${day}/${month}/${year}`}
                   selected={props.chosenDays[`${day}/${month}/${year}`]}
                   onDayClick={props.onDayClick}

@@ -14,6 +14,7 @@ const Div = styled.div`
   font-size: 1.5rem;
   box-shadow: 0px 4px 4px 2px rgba(0, 0, 0, 0.1);
   cursor: pointer;
+  margin: ${(props) => props.gap}px;
 
   ${(props) =>
     props.selected &&
@@ -30,7 +31,7 @@ const Day = (props) => {
   };
 
   return (
-    <Div onClick={onClickHandler} selected={props.selected}>
+    <Div onClick={onClickHandler} selected={props.selected} gap={props.gap}>
       <p>{props.value}</p>
     </Div>
   );

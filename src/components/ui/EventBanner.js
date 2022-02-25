@@ -1,5 +1,4 @@
 import React from "react";
-import classes from "./EventBanner.module.css";
 import styled from "styled-components";
 import { Colors } from "../../utils";
 
@@ -15,10 +14,14 @@ const Div = styled.div`
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 `;
 
+const Title = styled.h1`
+  font-size: 1.8rem;
+`;
+
 const EventBanner = (props) => {
   return (
-    <Div className={classes.container}>
-      <h1>{props.eventName}</h1>
+    <Div>
+      <Title>{props.eventName}</Title>
     </Div>
   );
 };
