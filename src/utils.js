@@ -4,6 +4,7 @@ export const Colors = {
   primary: "#94D4FF",
   grey: "#9E8576",
   // transparentPrimary: "rgba(39, 93, 173, 0.5)",
+  // verde: 9CFF94
 };
 
 export const dateToFormat = (date) => {
