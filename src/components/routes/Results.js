@@ -50,47 +50,49 @@ const Results = () => {
   // }, [results]);
 
   return (
-    <div className={classes.container}>
-      <EventBanner eventName={data.name} />
-      <div className={classes.resultsContainer}>
-        {results.some((obj) => obj.nonParts.length === 0) && (
-          <Section
-            className={classes.section}
-            label="These days are perfect! 🎉"
-          >
-            {results.map(
-              (obj) =>
-                obj.nonParts.length === 0 && (
-                  <ResultTab
-                    key={obj.date}
-                    date={formatToDate(obj.date)}
-                    parts={Object.keys(data.partecipants)}
-                  />
-                )
-            )}
-          </Section>
-        )}
-        {results.some((obj) => obj.nonParts.length > 0) && (
-          <Section
-            className={classes.section}
-            label="Someone's missing these days😢"
-          >
-            {results.map(
-              (obj) =>
-                obj.nonParts.length > 0 && (
-                  <ResultTab
-                    key={obj.date}
-                    nonParts={obj.nonParts}
-                    parts={Object.keys(data.partecipants)}
-                    date={formatToDate(obj.date)}
-                  />
-                )
-            )}
-          </Section>
-        )}
+    <>
+      <div className={classes.container}>
+        <EventBanner eventName={data.name} />
+        <div className={classes.resultsContainer}>
+          {results.some((obj) => obj.nonParts.length === 0) && (
+            <Section
+              className={classes.section}
+              label="These days are perfect! 🎉"
+            >
+              {results.map(
+                (obj) =>
+                  obj.nonParts.length === 0 && (
+                    <ResultTab
+                      key={obj.date}
+                      date={formatToDate(obj.date)}
+                      parts={Object.keys(data.partecipants)}
+                    />
+                  )
+              )}
+            </Section>
+          )}
+          {results.some((obj) => obj.nonParts.length > 0) && (
+            <Section
+              className={classes.section}
+              label="Someone's missing these days😢"
+            >
+              {results.map(
+                (obj) =>
+                  obj.nonParts.length > 0 && (
+                    <ResultTab
+                      key={obj.date}
+                      nonParts={obj.nonParts}
+                      parts={Object.keys(data.partecipants)}
+                      date={formatToDate(obj.date)}
+                    />
+                  )
+              )}
+            </Section>
+          )}
+        </div>
       </div>
       <Share url={`pickaday.io/${id}`} />
-    </div>
+    </>
   );
 };
 

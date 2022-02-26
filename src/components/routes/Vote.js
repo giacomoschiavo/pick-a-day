@@ -166,11 +166,12 @@ const Vote = () => {
           });
       } else {
         if (chosenDays.length === 0) {
-          axios.delete("/api/v1/partecipants", {
-            ip: ip,
-            name: userName,
-            eventId: id
-          })
+          axios
+            .delete("/api/v1/partecipants", {
+              ip: ip,
+              name: userName,
+              eventId: id,
+            })
             .then((res) => {
               setSendingData(false);
               navigateToResults();
@@ -264,10 +265,10 @@ const Vote = () => {
           Show results
         </Button>
       </div>
+      <Share url={`pickaday.io/${id}`} />
       {showPopup && (
         <Popup closePopup={() => setShowPopup(false)}>{error}</Popup>
       )}
-      <Share url={`pickaday.io/${id}`} />
     </>
   );
 };

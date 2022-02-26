@@ -7,18 +7,23 @@ import TextInput from "./TextInput";
 
 const Div = styled.div`
   display: flex;
-  /* justify-content: center; */
+  justify-content: flex-end;
   align-items: center;
   flex-direction: column;
   position: sticky;
   bottom: 0;
-  padding: 10px;
-  padding-bottom: 20px;
   background-color: ${Colors.white};
   height: 10%;
+  flex: 1;
+`;
+
+const InternalDiv = styled.div`
+  margin-bottom: 10px;
+  padding: 10px;
+  padding-bottom: 20px;
   border: 1px solid rgba(0, 0, 0, 0.1);
   box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
-  border-radius: 20px 20px 0 0;
+  border-radius: 20px;
 `;
 
 const HorizontalDiv = styled.div`
@@ -57,16 +62,18 @@ const Share = (props) => {
 
   return (
     <Div>
-      <Label color={Colors.primary}>Share this link</Label>
-      <HorizontalDiv>
-        <TextInput
-          margin={5}
-          disabled={true}
-          primary={false}
-          value={props.url}
-        />
-        <Button onClick={() => onClick()}>Copy</Button>
-      </HorizontalDiv>
+      <InternalDiv>
+        <Label color={Colors.primary}>Share this link</Label>
+        <HorizontalDiv>
+          <TextInput
+            margin={5}
+            disabled={true}
+            primary={false}
+            value={props.url}
+          />
+          <Button onClick={() => onClick()}>Copy</Button>
+        </HorizontalDiv>
+      </InternalDiv>
     </Div>
   );
 };

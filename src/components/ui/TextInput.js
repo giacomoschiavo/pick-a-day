@@ -42,7 +42,6 @@ const TextInput = (props) => {
         disabled={props.disabled}
         onChange={onChangeHandler}
         placeholder={props.placeholder}
-        primary={props.primary}
         margin={props.margin}
         required
       />
