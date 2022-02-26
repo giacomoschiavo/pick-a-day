@@ -9,11 +9,8 @@ import { filterSelected } from "../../utils";
 import { useNavigate } from "react-router-dom";
 import Section from "../container/Section";
 import EventBanner from "../ui/EventBanner";
-<<<<<<< HEAD
 import Share from "../ui/Share";
-=======
 import Popup from "../ui/Popup";
->>>>>>> 5d4b0d00dc85ab4e421a485fc677e61fe285e398
 
 // le date sono passate ai figli con questa struttura
 // {"16/2/2022": true, "24/2/2022": false, etc} dove il booleano
@@ -246,6 +243,7 @@ const Vote = () => {
         >
           Show results
         </Button>
+        <Share url={`pickaday.io/${id}`} />
       </div>
       {showPopup && (
         <Popup closePopup={() => setShowPopup(false)}>{error}</Popup>
