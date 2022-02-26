@@ -12,12 +12,13 @@ const Div = styled.div`
   flex-direction: column;
   position: sticky;
   bottom: 0;
-  background-color: ${Colors.white};
   height: 10%;
   flex: 1;
+  background-color: transparent;
 `;
 
 const InternalDiv = styled.div`
+  background-color: ${Colors.white};
   margin-bottom: 10px;
   padding: 10px;
   padding-bottom: 20px;

@@ -32,7 +32,7 @@ const ResultTab = (props) => {
             onDayClick={() => {}}
           />
           <p className={classes.month}>
-            {getCapitalLetterMonth(props.date.getMonth())}
+            {getCapitalLetterMonth(props.date.getMonth() + 1)}
           </p>
         </div>
         <div className={`${classes.iconContainer} ${show && classes.rotated}`}>

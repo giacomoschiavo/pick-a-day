@@ -118,7 +118,7 @@ const Vote = () => {
         setSendingData(false);
         return;
       }
-      if (filterSelected(chosenDays).length < 1) {
+      if (filterSelected(chosenDays).length < 1 && !hasAlreadyLogged) {
         setError("Please, choose at least one day🐣");
         setShowPopup(true);
         setSendingData(false);
