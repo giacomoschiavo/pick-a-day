@@ -6,6 +6,7 @@ import Label from "./Label";
 import TextInput from "./TextInput";
 
 const Div = styled.div`
+  transform: scale(0.8);
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -18,11 +19,11 @@ const Div = styled.div`
 `;
 
 const InternalDiv = styled.div`
-  background-color: ${Colors.white};
+  background-color: ${Colors.black};
   margin-bottom: 10px;
   padding: 10px;
   padding-bottom: 20px;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  border: 2px solid ${Colors.black};
   box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
   border-radius: 20px;
 `;
@@ -30,24 +31,14 @@ const InternalDiv = styled.div`
 const HorizontalDiv = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-between;
+  align-items: center;
 `;
 
-// const Input = styled.input`
-//   background: transparent;
-//   border: 1px solid ${Colors.black};
-//   box-sizing: border-box;
-//   box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.1);
-//   border-radius: 20px;
-//   width: 80%;
-//   font-family: "VarelaRound";
-//   text-align: center;
-//   transition: 0.2s;
-//   font-size: 1rem;
-//   text-overflow: ellipsis;
-//   overflow: hidden;
-//   padding: 0 5px;
-// `;
+const Input = styled(TextInput)`
+  background-color: ${Colors.black};
+  color: ${Colors.white};
+`;
 
 const Share = (props) => {
   async function onClick() {
@@ -64,14 +55,9 @@ const Share = (props) => {
   return (
     <Div>
       <InternalDiv>
-        <Label color={Colors.primary}>Share this link</Label>
+        <Label color={Colors.white}>Share this link</Label>
         <HorizontalDiv>
-          <TextInput
-            margin={5}
-            disabled={true}
-            primary={false}
-            value={props.url}
-          />
+          <Input disabled={true} value={props.url} />
           <Button onClick={() => onClick()}>Copy</Button>
         </HorizontalDiv>
       </InternalDiv>

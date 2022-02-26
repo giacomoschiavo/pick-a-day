@@ -14,7 +14,11 @@ const P = styled.p`
 `;
 
 const Label = (props) => {
-  return <P color={props.color}>{props.children}</P>;
+  return (
+    <P className={props.className} color={props.color}>
+      {props.children}
+    </P>
+  );
 };
 
 export default Label;

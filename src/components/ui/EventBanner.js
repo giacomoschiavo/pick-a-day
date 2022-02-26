@@ -7,7 +7,7 @@ const Div = styled.div`
   color: ${Colors.white};
   text-align: center;
   transform: translateY(-20%);
-  padding-top: 5%;
+  padding-top: 10px;
   z-index: 0;
   width: 80%;
   border-radius: 0 0 20px 20px;

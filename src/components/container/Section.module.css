@@ -5,3 +5,7 @@
   padding: 5px 0 20px 0;
   align-content: stretch;
 }
+
+.label {
+  padding: 10px 5px;
+}

@@ -4,7 +4,7 @@ import classes from "./Section.module.css";
 const Section = (props) => {
   return (
     <div className={`${props.className} ${classes.container}`}>
-      <Label>{props.label}</Label>
+      <Label className={classes.label}>{props.label}</Label>
       {props.children}
     </div>
   );

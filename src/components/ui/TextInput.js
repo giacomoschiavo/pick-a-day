@@ -10,10 +10,9 @@ const Div = styled.div`
 
 const Input = styled.input`
   background: ${Colors.white};
-  border: 1px solid ${Colors.black};
   box-sizing: border-box;
-  box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.1);
-  border-radius: 20px;
+  box-shadow: 0px 2px 5px 2px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
   width: 100%;
   padding: 10px;
   margin: ${(props) => props.margin || 0}px;
@@ -22,8 +21,10 @@ const Input = styled.input`
   transition: 0.2s;
   font-size: 1.3rem;
   opacity: ${(props) => (props.disabled ? 0.4 : 1)};
+  border: 1px solid transparent;
 
   &:hover {
+    border: 1px solid rgba(0, 0, 0, 0.3);
     transition: 0.2s;
     box-shadow: none;
   }
@@ -38,6 +39,7 @@ const TextInput = (props) => {
   return (
     <Div>
       <Input
+        className={props.className}
         type="text"
         value={props.value}
         disabled={props.disabled}

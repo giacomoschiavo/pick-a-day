@@ -5,7 +5,7 @@ import Button from "./Button";
 
 const Backdrop = styled.div`
   z-index: 99;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -14,7 +14,7 @@ const Backdrop = styled.div`
 `;
 
 const Modal = styled.div`
-  position: absolute;
+  position: fixed;
   transform: translate(-50%, -50%);
   top: 50%;
   left: 50%;

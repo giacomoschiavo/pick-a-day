@@ -265,7 +265,7 @@ const Vote = () => {
           Show results
         </Button>
       </div>
-      <Share url={`pickaday.io/${id}`} />
+      <Share url={`https://pick-a-day.netlify.app/${id}`} />
       {showPopup && (
         <Popup closePopup={() => setShowPopup(false)}>{error}</Popup>
       )}

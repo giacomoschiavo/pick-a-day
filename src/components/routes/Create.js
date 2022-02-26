@@ -22,7 +22,11 @@ const Create = () => {
 
   const navigateToVote = async () => {
     // TODO: controllo lunghezza nome evento ( > 3 e < 25)
-
+    if (eventName.trim().length < 3 || eventName.trim().length > 25) {
+      setError("Please, choose a name between 3 and 25 characters🗒️");
+      setShowPopup(true);
+      return;
+    }
     if (eventName.trim() === "") {
       setError("Please, choose a name for the event🗒️");
       setShowPopup(true);
@@ -79,10 +83,11 @@ const Create = () => {
   return (
     <>
       <div className={classes.container}>
-        <Section label="What's the event name?">
+        <h1 className={classes.title}>Let's organize something!</h1>
+        <Section label="What is the name of the event?🍿">
           <TextInput value={eventName} setValue={setEventName} />
         </Section>
-        <Section label="When?">
+        <Section label="When does it take place?⌚">
           <Calendar
             tileClassName={(date) => getTileClassName(date)}
             onClickDay={onClickDayHandler}
