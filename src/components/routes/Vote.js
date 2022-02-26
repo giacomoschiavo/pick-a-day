@@ -165,28 +165,48 @@ const Vote = () => {
             }
           });
       } else {
-        axios
-          .patch("/api/v1/partecipants", {
+        if (chosenDays.length === 0) {
+          axios.delete("/api/v1/partecipants", {
             ip: ip,
             name: userName,
-            available: filterSelected(chosenDays),
-            eventId: id,
+            eventId: id
           })
-          .then((res) => {
-            if (!unmounted) {
+            .then((res) => {
               setSendingData(false);
               navigateToResults();
-              console.log(res.status);
-            }
-          })
-          .catch((error) => {
-            if (!unmounted) {
-              setError(error.response.data.msg);
-              setShowPopup(true);
-              console.log(error);
-              setSendingData(false);
-            }
-          });
+            })
+            .catch((error) => {
+              if (!unmounted) {
+                setError(error.response.data.msg);
+                setShowPopup(true);
+                console.log(error);
+                setSendingData(false);
+              }
+            });
+        } else {
+          axios
+            .patch("/api/v1/partecipants", {
+              ip: ip,
+              name: userName,
+              available: filterSelected(chosenDays),
+              eventId: id,
+            })
+            .then((res) => {
+              if (!unmounted) {
+                setSendingData(false);
+                navigateToResults();
+                console.log(res.status);
+              }
+            })
+            .catch((error) => {
+              if (!unmounted) {
+                setError(error.response.data.msg);
+                setShowPopup(true);
+                console.log(error);
+                setSendingData(false);
+              }
+            });
+        }
       }
     }
     return () => {
