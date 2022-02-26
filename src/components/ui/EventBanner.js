@@ -9,7 +9,7 @@ const Div = styled.div`
   transform: translateY(-20%);
   padding-top: 5%;
   z-index: 0;
-  width: 100%;
+  width: 80%;
   border-radius: 0 0 20px 20px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 `;
