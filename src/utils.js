@@ -1,7 +1,7 @@
 export const Colors = {
-  white: "#F7F5FB",
-  black: "#1F2421",
-  primary: "#94D4FF",
+  white: "#e7ecef",
+  black: "#000000",
+  primary: "#139a43",
   grey: "#9E8576",
   // transparentPrimary: "rgba(39, 93, 173, 0.5)",
 };
@@ -62,8 +62,7 @@ export const checkPreviousDays = (days) => {
   const actualTime = new Date();
   // parte da mezzanotte, il giorno stesso puo essere programmato
   const today = new Date(
-    `${
-      actualTime.getMonth() + 1
+    `${actualTime.getMonth() + 1
     }/${actualTime.getDate()}/${actualTime.getFullYear()}`
   ).getTime();
   // ritorna true se almeno un giorno e' precedente a questo
