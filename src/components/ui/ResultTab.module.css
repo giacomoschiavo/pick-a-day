@@ -15,6 +15,12 @@
   transition: .4s;
 }
 
+.container:hover {
+  box-shadow: none;
+  transition: .4s;
+}
+
+
 .date {
   display: flex;
   flex-direction: row;

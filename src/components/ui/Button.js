@@ -33,6 +33,7 @@ const Div = styled.div`
       background-color: ${Colors.white};
       box-shadow: none;
       font-size: 1rem;
+      opacity: 0.6;
     `}
 `;
 

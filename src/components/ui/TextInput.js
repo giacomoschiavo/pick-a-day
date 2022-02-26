@@ -9,13 +9,14 @@ const Div = styled.div`
 `;
 
 const Input = styled.input`
-  background: transparent;
+  background: ${Colors.white};
   border: 1px solid ${Colors.black};
   box-sizing: border-box;
   box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.1);
   border-radius: 20px;
-  width: 80%;
-  padding: 10px 0;
+  width: 100%;
+  padding: 10px;
+  margin: ${(props) => props.margin || 0}px;
   font-family: "VarelaRound";
   text-align: center;
   transition: 0.2s;
@@ -41,6 +42,8 @@ const TextInput = (props) => {
         disabled={props.disabled}
         onChange={onChangeHandler}
         placeholder={props.placeholder}
+        primary={props.primary}
+        margin={props.margin}
         required
       />
     </Div>

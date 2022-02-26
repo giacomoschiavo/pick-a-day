@@ -243,11 +243,11 @@ const Vote = () => {
         >
           Show results
         </Button>
-        <Share url={`pickaday.io/${id}`} />
       </div>
       {showPopup && (
         <Popup closePopup={() => setShowPopup(false)}>{error}</Popup>
       )}
+      <Share url={`pickaday.io/${id}`} />
     </>
   );
 };

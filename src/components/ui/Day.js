@@ -10,7 +10,7 @@ const Div = styled.div`
   justify-content: center;
   align-items: center;
   border-radius: 15px;
-  transition: 0.2s;
+  transition: 0.4s;
   font-size: 1.5rem;
   box-shadow: 0px 4px 4px 2px rgba(0, 0, 0, 0.1);
   cursor: pointer;
@@ -19,9 +19,10 @@ const Div = styled.div`
   ${(props) =>
     props.selected &&
     css`
-      box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.4);
+      box-shadow: inset 0px 0px 15px rgba(0, 0, 0, 0.4);
       background: ${Colors.primary};
-      transition-duration: 0.8s;
+      color: ${Colors.white};
+      transition-duration: 0.2s;
     `}
 `;
 

@@ -3,13 +3,22 @@ import styled from "styled-components";
 import { Colors } from "../../utils";
 import Button from "./Button";
 import Label from "./Label";
+import TextInput from "./TextInput";
 
 const Div = styled.div`
   display: flex;
-  justify-content: center;
+  /* justify-content: center; */
+  align-items: center;
   flex-direction: column;
-  position: fixed;
-  bottom: 30px;
+  position: sticky;
+  bottom: 0;
+  padding: 10px;
+  padding-bottom: 20px;
+  background-color: ${Colors.white};
+  height: 10%;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 20px 20px 0 0;
 `;
 
 const HorizontalDiv = styled.div`
@@ -18,43 +27,45 @@ const HorizontalDiv = styled.div`
   justify-content: center;
 `;
 
-const Input = styled.input`
-  background: transparent;
-  border: 1px solid ${Colors.black};
-  box-sizing: border-box;
-  box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.1);
-  border-radius: 20px;
-  width: 80%;
-  font-family: "VarelaRound";
-  text-align: center;
-  transition: 0.2s;
-  font-size: 1.0rem;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  padding: 0 5px;
-`;
-
-const ShareButton = styled(Button)`
-  transform: scale(0.8);
-`
+// const Input = styled.input`
+//   background: transparent;
+//   border: 1px solid ${Colors.black};
+//   box-sizing: border-box;
+//   box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.1);
+//   border-radius: 20px;
+//   width: 80%;
+//   font-family: "VarelaRound";
+//   text-align: center;
+//   transition: 0.2s;
+//   font-size: 1rem;
+//   text-overflow: ellipsis;
+//   overflow: hidden;
+//   padding: 0 5px;
+// `;
 
 const Share = (props) => {
-
   async function onClick() {
-    navigator.clipboard.writeText(props.url).then(function () {
-      console.log('Async: Copying to clipboard was successful!');
-    }, function (err) {
-      console.error('Async: Could not copy text: ', err);
-    });
-
+    navigator.clipboard.writeText(props.url).then(
+      function () {
+        console.log("Async: Copying to clipboard was successful!");
+      },
+      function (err) {
+        console.error("Async: Could not copy text: ", err);
+      }
+    );
   }
 
   return (
     <Div>
-      <Label>Share this link</Label>
+      <Label color={Colors.primary}>Share this link</Label>
       <HorizontalDiv>
-        <Input disabled={true} value={props.url} />
-        <ShareButton isPrimary={true} onClick={() => onClick()}>Copy</ShareButton>
+        <TextInput
+          margin={5}
+          disabled={true}
+          primary={false}
+          value={props.url}
+        />
+        <Button onClick={() => onClick()}>Copy</Button>
       </HorizontalDiv>
     </Div>
   );

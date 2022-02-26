@@ -4,7 +4,7 @@ import { Colors } from "../../utils";
 
 const P = styled.p`
   text-align: center;
-  color: ${Colors.black};
+  color: ${(props) => props.color || Colors.black};
   font-weight: bolder;
   font-size: 1.3rem;
   margin: 10px 0;
@@ -14,7 +14,7 @@ const P = styled.p`
 `;
 
 const Label = (props) => {
-  return <P>{props.children}</P>;
+  return <P color={props.color}>{props.children}</P>;
 };
 
 export default Label;
