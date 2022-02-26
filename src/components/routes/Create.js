@@ -9,10 +9,12 @@ import Section from "../container/Section";
 import "../ui/Calendar.css";
 import { dateToFormat } from "../../utils";
 import classes from "./Create.module.css";
+import Popup from "../ui/Popup";
 
 const Create = () => {
   const [eventName, setEventName] = useState("");
   const [eventDays, setEventDays] = useState([]);
+  const [showPopup, setShowPopup] = useState(true);
 
   const navigate = useNavigate();
 
