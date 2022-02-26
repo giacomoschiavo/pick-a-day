@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Colors } from "../../utils";
 
 const Div = styled.div`
-  background-color: ${Colors.black};
+  background-color: ${Colors.primary};
   color: ${Colors.white};
   text-align: center;
   transform: translateY(-20%);
