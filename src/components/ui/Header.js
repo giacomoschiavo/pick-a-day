@@ -8,7 +8,7 @@ const Div = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 60px;
+  height: 6rem;
   width: 100%;
   text-align: center;
   overflow: hidden;
@@ -19,7 +19,8 @@ const Div = styled.div`
 `;
 
 const Image = styled.img`
-  height: 190px;
+  height: 100%;
+  transform: scale(3);
 `;
 
 const Header = () => {

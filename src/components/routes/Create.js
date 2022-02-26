@@ -22,13 +22,13 @@ const Create = () => {
 
   const navigateToVote = async () => {
     // TODO: controllo lunghezza nome evento ( > 3 e < 25)
-    if (eventName.trim().length < 3 || eventName.trim().length > 25) {
-      setError("Please, choose a name between 3 and 25 characters🗒️");
+    if (eventName.trim() === "") {
+      setError("Please, choose a name for the event🗒️");
       setShowPopup(true);
       return;
     }
-    if (eventName.trim() === "") {
-      setError("Please, choose a name for the event🗒️");
+    if (eventName.trim().length < 3 || eventName.trim().length > 25) {
+      setError("Please, choose a name between 3 and 25 characters🗒️");
       setShowPopup(true);
       return;
     }

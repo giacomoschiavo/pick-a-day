@@ -14,7 +14,7 @@ const Div = styled.div`
 const Footer = () => {
   return (
     <Div>
-      <p>Made with ❤️</p>
+      <p>Made with ❤️ from 🇮🇹</p>
     </Div>
   );
 };

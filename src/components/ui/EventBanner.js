@@ -9,9 +9,10 @@ const Div = styled.div`
   transform: translateY(-20%);
   padding-top: 10px;
   z-index: 0;
-  width: 80%;
-  border-radius: 0 0 20px 20px;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  width: 100%;
+  border-radius: 15px;
+  margin: 10px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
 `;
 
 const Title = styled.h1`
