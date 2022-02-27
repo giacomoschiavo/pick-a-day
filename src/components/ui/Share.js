@@ -19,13 +19,14 @@ const Div = styled.div`
 `;
 
 const InternalDiv = styled.div`
-  background-color: ${Colors.black};
+  box-sizing: border-box;
+  background-color: ${Colors.white};
   margin-bottom: 10px;
   padding: 10px;
   padding-bottom: 20px;
-  border: 2px solid ${Colors.black};
-  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+  border: 4px solid ${Colors.primary};
   border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 `;
 
 const HorizontalDiv = styled.div`
@@ -36,8 +37,8 @@ const HorizontalDiv = styled.div`
 `;
 
 const Input = styled(TextInput)`
-  background-color: ${Colors.black};
-  color: ${Colors.white};
+  background-color: ${Colors.white};
+  transform: scale(0.9);
 `;
 
 const Share = (props) => {
@@ -55,7 +56,7 @@ const Share = (props) => {
   return (
     <Div>
       <InternalDiv>
-        <Label color={Colors.white}>Share this link</Label>
+        <Label color={Colors.black}>Share this link</Label>
         <HorizontalDiv>
           <Input disabled={true} value={props.url} />
           <Button onClick={() => onClick()}>Copy</Button>

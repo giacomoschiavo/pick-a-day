@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Colors } from "../../utils";
+import Sub from "./Sub";
 
 const P = styled.p`
   text-align: center;
@@ -14,9 +15,11 @@ const P = styled.p`
 `;
 
 const Label = (props) => {
+  console.log(props.sub);
   return (
     <P className={props.className} color={props.color}>
       {props.children}
+      {props.sub !== "" && <Sub>{props.sub}</Sub>}
     </P>
   );
 };
