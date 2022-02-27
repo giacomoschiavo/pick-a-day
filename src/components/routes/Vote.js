@@ -234,17 +234,17 @@ const Vote = () => {
 
   return (
     <>
+      <EventBanner eventName={eventName} />
       <div className={classes.container}>
-        <EventBanner eventName={eventName} />
         {/* <p>{error}</p> */}
-        <Section label="What is your name?">
+        <Section label="What is your name?🏷️" sub="You cannot change it later">
           <TextInput
             value={userName}
             disabled={hasAlreadyLogged}
             setValue={setUserName}
           />
         </Section>
-        <Section label="Choose your days:">
+        <Section label="Choose your days📌">
           <AvailableDays
             onDayClick={onDayClickHandler}
             chosenDays={chosenDays}

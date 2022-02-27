@@ -19,10 +19,11 @@ const Div = styled.div`
   ${(props) =>
     props.selected &&
     css`
-      box-shadow: inset 0px 0px 15px rgba(0, 0, 0, 0.4);
+      box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.4);
       background: ${Colors.primary};
       color: ${Colors.white};
       transition-duration: 0.2s;
+      opacity: 0.8;
     `}
 `;
 
@@ -32,7 +33,12 @@ const Day = (props) => {
   };
 
   return (
-    <Div onClick={onClickHandler} selected={props.selected} gap={props.gap}>
+    <Div
+      onClick={onClickHandler}
+      selected={props.selected}
+      gap={props.gap}
+      className={props.className}
+    >
       <p>{props.value}</p>
     </Div>
   );

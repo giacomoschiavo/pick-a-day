@@ -51,8 +51,8 @@ const Results = () => {
 
   return (
     <>
+      <EventBanner eventName={data.name} />
       <div className={classes.container}>
-        <EventBanner eventName={data.name} />
         <div className={classes.resultsContainer}>
           {results.some((obj) => obj.nonParts.length === 0) && (
             <Section

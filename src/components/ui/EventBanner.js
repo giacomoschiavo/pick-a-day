@@ -6,10 +6,10 @@ const Div = styled.div`
   background-color: ${Colors.primary};
   color: ${Colors.white};
   text-align: center;
-  transform: translateY(-20%);
-  padding-top: 10px;
+  transform: translateY(-30%);
+  padding-top: 20px;
   z-index: 0;
-  width: 100%;
+  width: 28rem;
   border-radius: 15px;
   margin: 10px;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);

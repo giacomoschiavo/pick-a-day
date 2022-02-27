@@ -20,7 +20,7 @@ const Input = styled.input`
   text-align: center;
   transition: 0.2s;
   font-size: 1.3rem;
-  opacity: ${(props) => (props.disabled ? 0.4 : 1)};
+  opacity: ${(props) => (props.disabled ? 0.8 : 1)};
   border: 1px solid transparent;
 
   &:hover {
