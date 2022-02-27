@@ -29,6 +29,10 @@ export const createFormattedDate = (day, month, year) =>
 export const divideInMonths = (dates) => {
   if (!Array.isArray(dates)) throw new Error("Array of dates needed");
   const formattedDates = dates.map(formatToDate);
+  formattedDates.sort(function (a, b) {
+    return new Date(a) - new Date(b);
+  });
+  console.log(formattedDates)
   const organized = {};
   formattedDates.forEach((date) => {
     const year = date.getFullYear();
