@@ -5,9 +5,10 @@ import Create from "./components/routes/Create";
 import Vote from "./components/routes/Vote";
 import Header from "./components/ui/Header";
 import Results from "./components/routes/Results";
+import NotFound from "./components/routes/NotFound";
+import Footer from "./components/ui/Footer";
 import CenteredContainer from "./components/container/CenteredContainer";
 import axios from "axios";
-import Footer from "./components/ui/Footer";
 import styled from "styled-components";
 
 axios.defaults.baseURL = "https://pick-a-day.herokuapp.com";
@@ -25,6 +26,7 @@ function App() {
             <Route path="/create" element={<Create />} />
             <Route path="/:id" element={<Vote />} />
             <Route path="/:id/results" element={<Results />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
       </CenteredContainer>
