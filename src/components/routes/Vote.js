@@ -73,7 +73,7 @@ const Vote = () => {
       .get(`/api/v1/event/${id}`)
       .then((res) => {
         if (!unmounted) {
-          // non facciamo nessun controllo da cio che arriva, ci fidiamo di Bietro
+          // non facciamo nessun controllo da cio che arriva, ci fidiamo di 🅱️ietro
           setEventName(res.data.name);
           // crea oggetto date tipo {'12/9/2022': false}, nessuna data e' selezionata di default
           const newChosenDays = res.data.days.reduce((obj, day) => {
