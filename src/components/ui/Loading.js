@@ -2,6 +2,7 @@ import React from "react";
 import Backdrop from "./Backdrop";
 import styled from "styled-components";
 import { Colors } from "../../utils";
+import classes from "./Loading.module.css";
 
 const CenteredText = styled.div`
   position: absolute;
@@ -15,7 +16,12 @@ const Loading = () => {
   return (
     <Backdrop>
       <CenteredText>
-        <p>...loading</p>
+        <div className={classes["lds-ellipsis"]}>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
       </CenteredText>
     </Backdrop>
   );
