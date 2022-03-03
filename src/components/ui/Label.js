@@ -15,7 +15,6 @@ const P = styled.p`
 `;
 
 const Label = (props) => {
-  console.log(props.sub);
   return (
     <P className={props.className} color={props.color}>
       {props.children}

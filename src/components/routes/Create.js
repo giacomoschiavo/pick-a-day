@@ -10,10 +10,12 @@ import "../ui/Calendar.css";
 import { dateToFormat, checkPreviousDays } from "../../utils";
 import classes from "./Create.module.css";
 import Popup from "../ui/Popup";
+import Loading from "../ui/Loading";
 
 const Create = () => {
   const [eventName, setEventName] = useState("");
   const [eventDays, setEventDays] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const [showPopup, setShowPopup] = useState(false);
   const [error, setError] = useState("");
@@ -21,7 +23,6 @@ const Create = () => {
   const navigate = useNavigate();
 
   const navigateToVote = async () => {
-    // TODO: controllo lunghezza nome evento ( > 3 e < 25)
     if (eventName.trim() === "") {
       setError("Please, choose a name for the event🗒️");
       setShowPopup(true);
@@ -48,6 +49,7 @@ const Create = () => {
       return;
     }
 
+    setIsLoading(true);
     const formattedDates = eventDays.map(dateToFormat);
     try {
       const res = await axios.post("/api/v1/event", {
@@ -58,6 +60,8 @@ const Create = () => {
     } catch (error) {
       setError(error.response.data.msg);
       setShowPopup(true);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -82,6 +86,7 @@ const Create = () => {
 
   return (
     <>
+      {isLoading && <Loading />}
       <div className={classes.container}>
         <h1 className={classes.title}>Let's organize something!</h1>
         <Section label="What is the name of the event?🍿">

@@ -32,7 +32,6 @@ export const divideInMonths = (dates) => {
   formattedDates.sort(function (a, b) {
     return new Date(a) - new Date(b);
   });
-  console.log(formattedDates)
   const organized = {};
   formattedDates.forEach((date) => {
     const year = date.getFullYear();
@@ -67,7 +66,8 @@ export const checkPreviousDays = (days) => {
   const actualTime = new Date();
   // parte da mezzanotte, il giorno stesso puo essere programmato
   const today = new Date(
-    `${actualTime.getMonth() + 1
+    `${
+      actualTime.getMonth() + 1
     }/${actualTime.getDate()}/${actualTime.getFullYear()}`
   ).getTime();
   // ritorna true se almeno un giorno e' precedente a questo

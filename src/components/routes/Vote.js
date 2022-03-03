@@ -11,6 +11,7 @@ import Section from "../container/Section";
 import EventBanner from "../ui/EventBanner";
 import Share from "../ui/Share";
 import Popup from "../ui/Popup";
+import Loading from "../ui/Loading";
 
 // le date sono passate ai figli con questa struttura
 // {"16/2/2022": true, "24/2/2022": false, etc} dove il booleano
@@ -24,7 +25,7 @@ const Vote = () => {
   const [userName, setUserName] = useState("");
   const [eventName, setEventName] = useState("");
   const [sendingData, setSendingData] = useState(false);
-  const [ip, setIp] = useState("");
+  const [loading, setIsLoading] = useState(true);
 
   const [showPopup, setShowPopup] = useState(false);
   const [error, setError] = useState("");
@@ -37,38 +38,41 @@ const Vote = () => {
   }, [id, navigate]);
 
   //get user ip
-  useEffect(() => {
-    let unmounted = false;
-    axios
-      .get("https://geolocation-db.com/json/")
-      .then((res) => {
-        if (!unmounted) setIp(res.data.IPv4);
-      })
-      .catch((err) => {
-        if (!unmounted) {
-          setError(err.response);
-          setShowPopup(true);
-          console.log(err.response);
-        }
-      });
-    return () => {
-      unmounted = true;
-    };
-  }, []);
+  // useEffect(() => {
+  //   let unmounted = false;
+  //   axios
+  //     .get("https://geolocation-db.com/json/")
+  //     .then((res) => {
+  //       if (!unmounted) setIp(res.data.IPv4);
+  //     })
+  //     .catch((err) => {
+  //       if (!unmounted) {
+  //         setError(err.response);
+  //         setShowPopup(true);
+  //         console.log(err.response);
+  //       }
+  //     });
+  //   return () => {
+  //     unmounted = true;
+  //   };
+  // }, []);
 
   //determinates if user has already visited the page
   useEffect(() => {
+    setIsLoading(true);
     if (localStorage.getItem(localStorageItem) != null) {
       if (JSON.parse(localStorage.getItem(localStorageItem))[id] != null) {
         setHasAlreadyLogged(true);
         setUserName(JSON.parse(localStorage.getItem(localStorageItem))[id]);
       }
     }
+    setIsLoading(false);
   }, [id]);
 
   // get event info
   useEffect(() => {
     let unmounted = false;
+    setIsLoading(true);
     axios
       .get(`/api/v1/event/${id}`)
       .then((res) => {
@@ -95,8 +99,10 @@ const Vote = () => {
           setShowPopup(true);
           console.log(error);
         }
-      });
+      })
+      .finally(() => setIsLoading(false));
     return () => {
+      setIsLoading(false);
       unmounted = true;
     };
   }, [id, hasAlreadyLogged, userName]);
@@ -104,7 +110,6 @@ const Vote = () => {
   // updates data in database
   useEffect(() => {
     let unmounted = false;
-
     if (sendingData) {
       if (userName.trim() === "") {
         setError("Please, write your name🖊️");
@@ -124,9 +129,9 @@ const Vote = () => {
         setSendingData(false);
         return;
       }
+      setIsLoading(true);
       if (!hasAlreadyLogged) {
         const dataToSend = {
-          ip: ip,
           name: userName,
           available: filterSelected(chosenDays),
           eventId: id,
@@ -163,12 +168,12 @@ const Vote = () => {
               console.log(error);
               setSendingData(false);
             }
-          });
+          })
+          .finally(() => setIsLoading(false));
       } else {
         if (chosenDays.length === 0) {
           axios
             .delete("/api/v1/partecipants", {
-              ip: ip,
               name: userName,
               eventId: id,
             })
@@ -183,11 +188,11 @@ const Vote = () => {
                 console.log(error);
                 setSendingData(false);
               }
-            });
+            })
+            .finally(() => setIsLoading(false));
         } else {
           axios
             .patch("/api/v1/partecipants", {
-              ip: ip,
               name: userName,
               available: filterSelected(chosenDays),
               eventId: id,
@@ -206,12 +211,14 @@ const Vote = () => {
                 console.log(error);
                 setSendingData(false);
               }
-            });
+            })
+            .finally(() => setIsLoading(false));
         }
       }
     }
     return () => {
       unmounted = true;
+      setIsLoading(false);
     };
   }, [
     chosenDays,
@@ -219,7 +226,6 @@ const Vote = () => {
     sendingData,
     userName,
     id,
-    ip,
     navigateToResults,
   ]);
 
@@ -234,6 +240,7 @@ const Vote = () => {
 
   return (
     <>
+      {loading && <Loading />}
       <EventBanner eventName={eventName} />
       <div className={classes.container}>
         {/* <p>{error}</p> */}
