@@ -172,50 +172,52 @@ const Vote = () => {
             }
           })
           .finally(() => setIsLoading(false));
-      } else {
-        if (chosenDays.length === 0) {
-          axios
-            .delete("/api/v1/partecipants", {
+      } else if (filterSelected(chosenDays).length === 0 && hasAlreadyLogged) {
+        axios
+          .delete("/api/v1/partecipants", {
+            headers: {},
+            data: {
               name: userName,
               eventId: id,
-            })
-            .then((res) => {
+            }
+          })
+          .then((res) => {
+            setSendingData(false);
+            navigateToResults();
+          })
+          .catch((error) => {
+            if (!unmounted) {
+              setError(error.response.data.msg);
+              setShowPopup(true);
+              console.log(error);
+              setSendingData(false);
+            }
+          })
+          .finally(() => setIsLoading(false));
+      } else if (filterSelected(chosenDays).length !== 0) {
+        console.log(chosenDays)
+        axios
+          .patch("/api/v1/partecipants", {
+            name: userName,
+            available: filterSelected(chosenDays),
+            eventId: id,
+          })
+          .then((res) => {
+            if (!unmounted) {
               setSendingData(false);
               navigateToResults();
-            })
-            .catch((error) => {
-              if (!unmounted) {
-                setError(error.response.data.msg);
-                setShowPopup(true);
-                console.log(error);
-                setSendingData(false);
-              }
-            })
-            .finally(() => setIsLoading(false));
-        } else {
-          axios
-            .patch("/api/v1/partecipants", {
-              name: userName,
-              available: filterSelected(chosenDays),
-              eventId: id,
-            })
-            .then((res) => {
-              if (!unmounted) {
-                setSendingData(false);
-                navigateToResults();
-                console.log(res.status);
-              }
-            })
-            .catch((error) => {
-              if (!unmounted) {
-                setError(error.response.data.msg);
-                setShowPopup(true);
-                console.log(error);
-                setSendingData(false);
-              }
-            })
-            .finally(() => setIsLoading(false));
-        }
+              console.log(res.status);
+            }
+          })
+          .catch((error) => {
+            if (!unmounted) {
+              setError(error.response.data.msg);
+              setShowPopup(true);
+              console.log(error);
+              setSendingData(false);
+            }
+          })
+          .finally(() => setIsLoading(false));
       }
     }
     return () => {
