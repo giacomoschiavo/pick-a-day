@@ -9,15 +9,12 @@ import NotFound from "./components/routes/NotFound";
 import Footer from "./components/ui/Footer";
 import CenteredContainer from "./components/container/CenteredContainer";
 import axios from "axios";
-import styled from "styled-components";
 
 axios.defaults.baseURL = "https://pick-a-day.herokuapp.com";
 
-const MainContainer = styled.div``;
-
 function App() {
   return (
-    <MainContainer>
+    <div>
       <CenteredContainer>
         <Header />
         <BrowserRouter>
@@ -31,7 +28,7 @@ function App() {
         </BrowserRouter>
       </CenteredContainer>
       <Footer />
-    </MainContainer>
+    </div>
   );
 }
 
