@@ -21,7 +21,7 @@ const Input = styled.input`
   transition: 0.2s;
   font-size: 1.3rem;
   opacity: ${(props) => (props.disabled ? 0.8 : 1)};
-  border: 1px solid transparent;
+  border: 1px solid rgba(0, 0, 0, 0.3);
 
   &:hover {
     border: 1px solid rgba(0, 0, 0, 0.3);
