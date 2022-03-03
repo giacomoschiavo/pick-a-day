@@ -2,18 +2,10 @@ import React from "react";
 import styled from "styled-components";
 import { Colors } from "../../utils";
 import Button from "./Button";
-
-const Backdrop = styled.div`
-  z-index: 99;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.6);
-`;
+import Backdrop from "./Backdrop";
 
 const Modal = styled.div`
+  z-index: 100;
   position: fixed;
   transform: translate(-50%, -50%);
   top: 50%;
@@ -33,12 +25,13 @@ const ConfirmButton = styled(Button)`
 
 const Popup = (props) => {
   return (
-    <Backdrop onClick={props.closePopup}>
+    <>
+      <Backdrop onClick={props.closePopup} />
       <Modal>
         <div style={{ padding: "10px" }}>{props.children}</div>
         <ConfirmButton value="Ok" onClick={props.closePopup} />
       </Modal>
-    </Backdrop>
+    </>
   );
 };
 
