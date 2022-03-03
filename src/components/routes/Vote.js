@@ -72,40 +72,42 @@ const Vote = () => {
   // get event info
   useEffect(() => {
     let unmounted = false;
-    setIsLoading(true);
-    axios
-      .get(`/api/v1/event/${id}`)
-      .then((res) => {
-        if (!unmounted) {
-          // non facciamo nessun controllo da cio che arriva, ci fidiamo di 🅱️ietro
-          setEventName(res.data.name);
-          // crea oggetto date tipo {'12/9/2022': false}, nessuna data e' selezionata di default
-          const newChosenDays = res.data.days.reduce((obj, day) => {
-            obj[day] = false;
-            return obj;
-          }, {});
-          // se e' loggato, mette a true le date gia presenti
-          if (hasAlreadyLogged) {
-            res.data.partecipants[userName].forEach(
-              (date) => (newChosenDays[date] = true)
-            );
+    if (eventName === "") {
+      setIsLoading(true);
+      axios
+        .get(`/api/v1/event/${id}`)
+        .then((res) => {
+          if (!unmounted) {
+            // non facciamo nessun controllo da cio che arriva, ci fidiamo di 🅱️ietro
+            setEventName(res.data.name);
+            // crea oggetto date tipo {'12/9/2022': false}, nessuna data e' selezionata di default
+            const newChosenDays = res.data.days.reduce((obj, day) => {
+              obj[day] = false;
+              return obj;
+            }, {});
+            // se e' loggato, mette a true le date gia presenti
+            if (hasAlreadyLogged) {
+              res.data.partecipants[userName].forEach(
+                (date) => (newChosenDays[date] = true)
+              );
+            }
+            setChosenDays(newChosenDays);
           }
-          setChosenDays(newChosenDays);
-        }
-      })
-      .catch((error) => {
-        if (!unmounted) {
-          setError(error.response.data.msg);
-          setShowPopup(true);
-          console.log(error);
-        }
-      })
-      .finally(() => setIsLoading(false));
+        })
+        .catch((error) => {
+          if (!unmounted) {
+            setError(error.response.data.msg);
+            setShowPopup(true);
+            console.log(error);
+          }
+        })
+        .finally(() => setIsLoading(false));
+    }
     return () => {
       setIsLoading(false);
       unmounted = true;
     };
-  }, [id, hasAlreadyLogged, userName]);
+  }, [id, hasAlreadyLogged, userName, eventName]);
 
   // updates data in database
   useEffect(() => {
