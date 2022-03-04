@@ -3,8 +3,6 @@ export const Colors = {
   black: "#000000",
   primary: "#139a43",
   grey: "#9E8576",
-  // transparentPrimary: "rgba(39, 93, 173, 0.5)",
-  // verde: 9CFF94
 };
 
 export const dateToFormat = (date) => {
@@ -47,7 +45,9 @@ export const divideInMonths = (dates) => {
   return organized;
 };
 
-// ritorna date selezionate
+// ritorna date selezionate in un array
+// dateObj structure be like => {'12/09/2022': true, '13/09/2022': false}
+// where true means the date was selected
 export const filterSelected = (dateObj) => {
   return Object.keys(dateObj).reduce((arr, date) => {
     if (dateObj[date]) arr.push(date);
@@ -55,14 +55,18 @@ export const filterSelected = (dateObj) => {
   }, []);
 };
 
+// get a capital letter month
 export const getCapitalLetterMonth = (n) => {
+  // get the first of the month
   const date = new Date(`${n}/1/2022`);
   const month = date.toLocaleString("default", { month: "long" });
+  // CAPITALIZE
   return month.charAt(0).toUpperCase() + month.slice(1);
 };
 
+// checks if all the days in the array are not before today (not included)
+// * days are in getTime() format (ms) = [ 1645657200000, 1645743600000]
 export const checkPreviousDays = (days) => {
-  // days = [ 1645657200000, 1645743600000]
   const actualTime = new Date();
   // parte da mezzanotte, il giorno stesso puo essere programmato
   const today = new Date(
@@ -72,29 +76,6 @@ export const checkPreviousDays = (days) => {
   ).getTime();
   // ritorna true se almeno un giorno e' precedente a questo
   return days.some((day) => day < today);
-};
-
-export const validateEventName = (eventName) => {
-  if (eventName.trim() === "") {
-    return "Please, choose a name for the event🗒️";
-  }
-  if (eventName.trim().length < 3 || eventName.trim().length > 25) {
-    return "Please, choose a name between 3 and 25 characters🗒️";
-  }
-  return false;
-};
-
-export const validateEventDays = (eventDays) => {
-  if (eventDays.length < 2) {
-    return "Please, choose at least two days🎲";
-  }
-  if (eventDays.length > 14) {
-    return "Please, you can maximum 14 days📅";
-  }
-  if (checkPreviousDays(eventDays)) {
-    return "Please, choose future dates🔮";
-  }
-  return false;
 };
 
 // takes every input validation function and if at least one is not passed
@@ -107,12 +88,12 @@ export const checkErrorsAndShowPopup = (
   setShowPopup,
   ...validationErrors
 ) => {
-  let errorThrowned = false;
+  let errorThrown = false;
   validationErrors.forEach((messageError) => {
-    if (!messageError || errorThrowned) return;
+    if (!messageError || errorThrown) return;
     setError(messageError);
     setShowPopup(true);
-    errorThrowned = true;
+    errorThrown = true;
   });
-  return errorThrowned;
+  return errorThrown;
 };

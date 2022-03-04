@@ -7,12 +7,8 @@ import Calendar from "react-calendar";
 import TextInput from "../ui/TextInput";
 import Section from "../container/Section";
 import "../ui/Calendar.css";
-import {
-  checkErrorsAndShowPopup,
-  dateToFormat,
-  validateEventDays,
-  validateEventName,
-} from "../../utils";
+import { checkErrorsAndShowPopup, dateToFormat } from "../../utils";
+import { validateEventDays, validateEventName } from "../../validations";
 import classes from "./Create.module.css";
 import Popup from "../ui/Popup";
 import Loading from "../ui/Loading";
@@ -52,9 +48,8 @@ const Create = () => {
     }
   };
 
-  const onClickDayHandler = (date, e) => {
+  const onClickDayHandler = (date) => {
     const dateToCheck = new Date(date).getTime();
-    // const dateFormatted = `${date.getDay()}-${date.getMonth()}-${date.getFullYear()}`;
     // elimina il giorno gia presente
     if (eventDays.indexOf(dateToCheck) > -1) {
       setEventDays((prev) => prev.filter((date) => date !== dateToCheck));
@@ -81,7 +76,7 @@ const Create = () => {
         </Section>
         <Section label="When does it take place?⌚">
           <Calendar
-            tileClassName={(date) => getTileClassName(date)}
+            tileClassName={getTileClassName}
             onClickDay={onClickDayHandler}
             className={classes.calendar}
           />
