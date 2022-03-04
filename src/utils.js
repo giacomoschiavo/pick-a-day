@@ -73,3 +73,46 @@ export const checkPreviousDays = (days) => {
   // ritorna true se almeno un giorno e' precedente a questo
   return days.some((day) => day < today);
 };
+
+export const validateEventName = (eventName) => {
+  if (eventName.trim() === "") {
+    return "Please, choose a name for the event🗒️";
+  }
+  if (eventName.trim().length < 3 || eventName.trim().length > 25) {
+    return "Please, choose a name between 3 and 25 characters🗒️";
+  }
+  return false;
+};
+
+export const validateEventDays = (eventDays) => {
+  if (eventDays.length < 2) {
+    return "Please, choose at least two days🎲";
+  }
+  if (eventDays.length > 14) {
+    return "Please, you can maximum 14 days📅";
+  }
+  if (checkPreviousDays(eventDays)) {
+    return "Please, choose future dates🔮";
+  }
+  return false;
+};
+
+// takes every input validation function and if at least one is not passed
+// then error and popup state are updates
+// * needs setError and showPopup function
+// * every validation function must return a string or false
+// * args contains all the validation function
+export const checkErrorsAndShowPopup = (
+  setError,
+  setShowPopup,
+  ...validationErrors
+) => {
+  let errorThrowned = false;
+  validationErrors.forEach((messageError) => {
+    if (!messageError || errorThrowned) return;
+    setError(messageError);
+    setShowPopup(true);
+    errorThrowned = true;
+  });
+  return errorThrowned;
+};

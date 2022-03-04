@@ -7,7 +7,12 @@ import Calendar from "react-calendar";
 import TextInput from "../ui/TextInput";
 import Section from "../container/Section";
 import "../ui/Calendar.css";
-import { dateToFormat, checkPreviousDays } from "../../utils";
+import {
+  checkErrorsAndShowPopup,
+  dateToFormat,
+  validateEventDays,
+  validateEventName,
+} from "../../utils";
 import classes from "./Create.module.css";
 import Popup from "../ui/Popup";
 import Loading from "../ui/Loading";
@@ -23,31 +28,13 @@ const Create = () => {
   const navigate = useNavigate();
 
   const navigateToVote = async () => {
-    if (eventName.trim() === "") {
-      setError("Please, choose a name for the event🗒️");
-      setShowPopup(true);
-      return;
-    }
-    if (eventName.trim().length < 3 || eventName.trim().length > 25) {
-      setError("Please, choose a name between 3 and 25 characters🗒️");
-      setShowPopup(true);
-      return;
-    }
-    if (eventDays.length < 2) {
-      setError("Please, choose at least two days🎲");
-      setShowPopup(true);
-      return;
-    }
-    if (eventDays.length > 14) {
-      setError("Please, you can maximum 14 days📅");
-      setShowPopup(true);
-      return;
-    }
-    if (checkPreviousDays(eventDays)) {
-      setError("Please, choose future dates🔮");
-      setShowPopup(true);
-      return;
-    }
+    const thrownError = checkErrorsAndShowPopup(
+      setError,
+      setShowPopup,
+      validateEventName(eventName),
+      validateEventDays(eventDays)
+    );
+    if (thrownError) return;
 
     setIsLoading(true);
     const formattedDates = eventDays.map(dateToFormat);
