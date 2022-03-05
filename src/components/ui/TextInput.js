@@ -31,6 +31,7 @@ const Input = styled.input`
 `;
 
 const TextInput = (props) => {
+  // console.log("TextInput re-rendered");
   const onChangeHandler = (e) => {
     e.preventDefault();
     props.setValue(e.target.value);
@@ -52,4 +53,4 @@ const TextInput = (props) => {
   );
 };
 
-export default React.memo(TextInput);
+export default TextInput;

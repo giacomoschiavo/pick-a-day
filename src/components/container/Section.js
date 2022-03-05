@@ -2,7 +2,7 @@ import React from "react";
 import Label from "../ui/Label";
 import classes from "./Section.module.css";
 const Section = (props) => {
-  console.log("Section.js re-rendered con ", props.label);
+  // console.log("Section.js re-rendered con ", props.label);
   return (
     <div className={`${props.className} ${classes.container}`}>
       <Label className={classes.label} sub={props.sub}>
@@ -13,4 +13,27 @@ const Section = (props) => {
   );
 };
 
-export default React.memo(Section);
+// this substitutes shouldComponentUpdate
+// if true, the update is skipped
+export default React.memo(Section, (prevProps, nextProps) => {
+  // TODO: continues to render if empty string
+
+  // if value in textInput is the same, don't update
+  if (prevProps.children.props.value)
+    return prevProps.children.props.value === nextProps.children.props.value;
+
+  if (
+    prevProps.children.props.value === "" &&
+    nextProps.children.props.value === ""
+  )
+    return true;
+
+  // if eventDays did not change and so onClickDay did and so an update is not needed
+  if (prevProps.children.props.onClickDay)
+    return (
+      prevProps.children.props.onClickDay ===
+      nextProps.children.props.onClickDay
+    );
+
+  return false;
+});

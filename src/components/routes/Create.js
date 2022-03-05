@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -48,16 +48,20 @@ const Create = () => {
     }
   };
 
-  const onClickDayHandler = (date) => {
-    const dateToCheck = new Date(date).getTime();
-    // elimina il giorno gia presente
-    if (eventDays.indexOf(dateToCheck) > -1) {
-      setEventDays((prev) => prev.filter((date) => date !== dateToCheck));
-    } else {
-      // oppure lo aggiunge
-      setEventDays((prev) => [...prev, dateToCheck]);
-    }
-  };
+  // works
+  const onClickDayHandler = useCallback(
+    (date) => {
+      const dateToCheck = new Date(date).getTime();
+      // elimina il giorno gia presente
+      if (eventDays.indexOf(dateToCheck) > -1) {
+        setEventDays((prev) => prev.filter((date) => date !== dateToCheck));
+      } else {
+        // oppure lo aggiunge
+        setEventDays((prev) => [...prev, dateToCheck]);
+      }
+    },
+    [eventDays]
+  );
 
   const getTileClassName = ({ date }) => {
     // se la data e' stata selezionata, aggiungi la classe
