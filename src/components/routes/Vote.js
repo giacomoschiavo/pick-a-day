@@ -24,9 +24,7 @@ const Vote = () => {
   const [chosenDays, setChosenDays] = useState({});
   const [userName, setUserName] = useState("");
   const [eventName, setEventName] = useState("");
-  const [sendingData, setSendingData] = useState(false);
   const [loading, setIsLoading] = useState(true);
-
   const [showPopup, setShowPopup] = useState(false);
   const [error, setError] = useState("");
 
@@ -36,26 +34,6 @@ const Vote = () => {
   const navigateToResults = useCallback(() => {
     navigate(`/${id}/results`);
   }, [id, navigate]);
-
-  //get user ip
-  // useEffect(() => {
-  //   let unmounted = false;
-  //   axios
-  //     .get("https://geolocation-db.com/json/")
-  //     .then((res) => {
-  //       if (!unmounted) setIp(res.data.IPv4);
-  //     })
-  //     .catch((err) => {
-  //       if (!unmounted) {
-  //         setError(err.response);
-  //         setShowPopup(true);
-  //         console.log(err.response);
-  //       }
-  //     });
-  //   return () => {
-  //     unmounted = true;
-  //   };
-  // }, []);
 
   //determinates if user has already visited the page
   useEffect(() => {
@@ -69,169 +47,138 @@ const Vote = () => {
     setIsLoading(false);
   }, [id]);
 
-  // get event info
+  //get event info if the user has already voted
   useEffect(() => {
     let unmounted = false;
-    if (eventName === "") {
-      setIsLoading(true);
-      axios
-        .get(`/api/v1/event/${id}`)
-        .then((res) => {
-          if (!unmounted) {
-            // non facciamo nessun controllo da cio che arriva, ci fidiamo di 🅱️ietro
-            setEventName(res.data.name);
-            // crea oggetto date tipo {'12/9/2022': false}, nessuna data e' selezionata di default
-            const newChosenDays = res.data.days.reduce((obj, day) => {
-              obj[day] = false;
-              return obj;
-            }, {});
-            // se e' loggato, mette a true le date gia presenti
-            if (hasAlreadyLogged) {
-              res.data.partecipants[userName].forEach(
-                (date) => (newChosenDays[date] = true)
-              );
-            }
-            setChosenDays(newChosenDays);
-          }
-        })
-        .catch((error) => {
-          if (!unmounted) {
-            setError(error.response.data.msg);
-            setShowPopup(true);
-            console.log(error);
-          }
-        })
-        .finally(() => setIsLoading(false));
+    if (!hasAlreadyLogged) {
+      return () => unmounted = true;
     }
-    return () => {
-      setIsLoading(false);
-      unmounted = true;
-    };
-  }, [id, hasAlreadyLogged, userName, eventName]);
+    setIsLoading(true);
+    if (!unmounted) {
+      axios.get(`/api/v1/event/${id}`).then((res) => {
+        setEventName(res.data.name);
+        // crea oggetto date tipo {'12/9/2022': false}, nessuna data e' selezionata di default
+        const newChosenDays = res.data.days.reduce((obj, day) => {
+          obj[day] = false;
+          return obj;
+        }, {});
+        res.data.partecipants[userName].forEach(
+          (date) => (newChosenDays[date] = true)
+        );
+        setChosenDays(newChosenDays);
+      }).catch((error) => {
+        setError(error.response.data.msg);
+        setShowPopup(true);
+        console.log(error);
+      }).finally(() => setIsLoading(false));
+    }
 
-  // updates data in database
+    return () => unmounted = true;
+
+  }, [id, hasAlreadyLogged, userName]);
+
+  //get event info if the user has NOT already voted
   useEffect(() => {
     let unmounted = false;
-    if (sendingData) {
-      if (userName.trim() === "") {
-        setError("Please, write your name🖊️");
-        setShowPopup(true);
-        setSendingData(false);
-        return;
-      }
-      if (userName.length < 3 || userName.length > 15) {
-        setError("Please, choose a name between 3 and 15 characters📏");
-        setShowPopup(true);
-        setSendingData(false);
-        return;
-      }
-      if (filterSelected(chosenDays).length < 1 && !hasAlreadyLogged) {
-        setError("Please, choose at least one day🐣");
-        setShowPopup(true);
-        setSendingData(false);
-        return;
+    if (!unmounted) {
+      if (hasAlreadyLogged) {
+        return () => unmounted = true;
       }
       setIsLoading(true);
-      if (!hasAlreadyLogged) {
-        const dataToSend = {
+      axios.get(`/api/v1/event/${id}`).then((res) => {
+        setEventName(res.data.name);
+        // crea oggetto date tipo {'12/9/2022': false}, nessuna data e' selezionata di default
+        const newChosenDays = res.data.days.reduce((obj, day) => {
+          obj[day] = false;
+          return obj;
+        }, {});
+        setChosenDays(newChosenDays);
+      }).catch((error) => {
+        setError(error.response.data.msg);
+        setShowPopup(true);
+        console.log(error);
+      }).finally(() => setIsLoading(false));
+    }
+
+    return () => unmounted = true;
+
+  }, [id, hasAlreadyLogged]);
+
+  //check for errors before uploading the data
+  function checkErrors() {
+    if (userName.trim() === "") {
+      setError("Please, write your name🖊️");
+      setShowPopup(true);
+      return true;
+    }
+    if (userName.length < 3 || userName.length > 15) {
+      setError("Please, choose a name between 3 and 15 characters📏");
+      setShowPopup(true);
+      return true;
+    }
+    if (filterSelected(chosenDays).length < 1 && !hasAlreadyLogged) {
+      setError("Please, choose at least one day🐣");
+      setShowPopup(true);
+      return true;
+    }
+  }
+
+  //uplaod data managing all the possible user's cases
+  async function uploadData() {
+    if (checkErrors()) {
+      return;
+    }
+    setIsLoading(true);
+    if (!hasAlreadyLogged) { //case where user has never voted before
+      const dataToSend = {
+        name: userName,
+        available: filterSelected(chosenDays),
+        eventId: id,
+      };
+      axios.post("/api/v1/partecipants", dataToSend).then((res) => {
+        let newEventList = {};
+        newEventList[id] = userName;
+        localStorage.setItem(
+          localStorageItem,
+          JSON.stringify(newEventList)
+        );
+        navigateToResults();
+      }).catch((error) => {
+        setError(error.response.data.msg);
+        setShowPopup(true);
+        console.log(error);
+      }).finally(() => setIsLoading(false));
+    } else {
+      if (filterSelected(chosenDays).length === 0) { //case where user has already voted and has chosen 0 days available, so he wants to get eliminated
+        axios.delete("/api/v1/partecipants", {
+          headers: {},
+          data: {
+            name: userName,
+            eventId: id,
+          }
+        }).then((res) => {
+          navigateToResults();
+        }).catch((error) => {
+          setError(error.response.data.msg);
+          setShowPopup(true);
+          console.log(error);
+        }).finally(() => setIsLoading(false));
+      } else { //case where user has already voted and has chosen some days
+        axios.patch("/api/v1/partecipants", {
           name: userName,
           available: filterSelected(chosenDays),
           eventId: id,
-        };
-        axios
-          .post("/api/v1/partecipants", dataToSend)
-          .then((res) => {
-            if (!unmounted) {
-              setSendingData(false);
-              if (localStorage.getItem(localStorageItem) != null) {
-                let newEventList = JSON.parse(
-                  localStorage.getItem(localStorageItem)
-                );
-                newEventList[id] = userName;
-                localStorage.setItem(
-                  localStorageItem,
-                  JSON.stringify(newEventList)
-                );
-              } else {
-                let newEventList = {};
-                newEventList[id] = userName;
-                localStorage.setItem(
-                  localStorageItem,
-                  JSON.stringify(newEventList)
-                );
-              }
-              navigateToResults();
-            }
-          })
-          .catch((error) => {
-            if (!unmounted) {
-              setError(error.response.data.msg);
-              setShowPopup(true);
-              console.log(error);
-              setSendingData(false);
-            }
-          })
-          .finally(() => setIsLoading(false));
-      } else if (filterSelected(chosenDays).length === 0 && hasAlreadyLogged) {
-        axios
-          .delete("/api/v1/partecipants", {
-            headers: {},
-            data: {
-              name: userName,
-              eventId: id,
-            }
-          })
-          .then((res) => {
-            setSendingData(false);
-            navigateToResults();
-          })
-          .catch((error) => {
-            if (!unmounted) {
-              setError(error.response.data.msg);
-              setShowPopup(true);
-              console.log(error);
-              setSendingData(false);
-            }
-          })
-          .finally(() => setIsLoading(false));
-      } else if (filterSelected(chosenDays).length !== 0) {
-        console.log(chosenDays)
-        axios
-          .patch("/api/v1/partecipants", {
-            name: userName,
-            available: filterSelected(chosenDays),
-            eventId: id,
-          })
-          .then((res) => {
-            if (!unmounted) {
-              setSendingData(false);
-              navigateToResults();
-              console.log(res.status);
-            }
-          })
-          .catch((error) => {
-            if (!unmounted) {
-              setError(error.response.data.msg);
-              setShowPopup(true);
-              console.log(error);
-              setSendingData(false);
-            }
-          })
-          .finally(() => setIsLoading(false));
+        }).then((res) => {
+          navigateToResults();
+        }).catch((error) => {
+          setError(error.response.data.msg);
+          setShowPopup(true);
+          console.log(error);
+        }).finally(() => setIsLoading(false));
       }
     }
-    return () => {
-      unmounted = true;
-      setIsLoading(false);
-    };
-  }, [
-    chosenDays,
-    hasAlreadyLogged,
-    sendingData,
-    userName,
-    id,
-    navigateToResults,
-  ]);
+    return;
+  }
 
   const onDayClickHandler = (date) => {
     // toggles the value in the corresponding date
@@ -263,7 +210,7 @@ const Vote = () => {
         </Section>
         <Button
           className={classes.sendButton}
-          onClick={() => setSendingData(true)}
+          onClick={() => uploadData()}
         >
           Vote
         </Button>
