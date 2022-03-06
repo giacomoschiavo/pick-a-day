@@ -180,7 +180,7 @@ const Vote = () => {
     return;
   }
 
-  const onDayClickHandler = (date) => {
+  function onDayClickHandler(date) {
     // toggles the value in the corresponding date
     setChosenDays((prevDays) => {
       const newDays = { ...prevDays };
@@ -212,7 +212,7 @@ const Vote = () => {
           className={classes.sendButton}
           onClick={() => uploadData()}
         >
-          Vote
+          {hasAlreadyLogged && filterSelected(chosenDays).length === 0 ? "Delete me" : "Vote"}
         </Button>
         <p>or</p>
         <Button
