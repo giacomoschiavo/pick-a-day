@@ -3,6 +3,7 @@ export const Colors = {
   black: "#000000",
   primary: "#139a43",
   grey: "#9E8576",
+  red: "#ef2917",
 };
 
 export const dateToFormat = (date) => {

@@ -5,7 +5,8 @@ import { Colors } from "../../utils";
 const Div = styled.div`
   box-sizing: border-box;
   width: fit-content;
-  background-color: ${Colors.primary};
+  background-color: ${(props) =>
+    props.backgroundColor ? props.backgroundColor : Colors.primary};
   padding: 15px;
   padding-left: 40px;
   padding-right: 40px;
@@ -43,6 +44,7 @@ const Button = (props) => {
       isPrimary={props.isPrimary}
       onClick={props.onClick}
       className={props.className}
+      backgroundColor={props.backgroundColor}
     >
       {props.children || props.value}
     </Div>

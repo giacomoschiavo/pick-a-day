@@ -5,7 +5,7 @@ import Button from "../ui/Button";
 import AvailableDays from "../container/AvailableDays";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import { filterSelected } from "../../utils";
+import { Colors, filterSelected } from "../../utils";
 import { useNavigate } from "react-router-dom";
 import Section from "../container/Section";
 import EventBanner from "../ui/EventBanner";
@@ -26,6 +26,7 @@ const Vote = () => {
   const [chosenDays, setChosenDays] = useState({});
   const [userName, setUserName] = useState("");
   const [eventName, setEventName] = useState("");
+
   const [loading, setIsLoading] = useState(true);
   const [showPopup, setShowPopup] = useState(false);
   const [error, setError] = useState("");
@@ -198,6 +199,10 @@ const Vote = () => {
     });
   }
 
+  const isDeletable = () => {
+    return hasAlreadyLogged && filterSelected(chosenDays).length === 0;
+  };
+
   return (
     <>
       {loading && <Loading />}
@@ -217,10 +222,12 @@ const Vote = () => {
             chosenDays={chosenDays}
           />
         </Section>
-        <Button className={classes.sendButton} onClick={() => uploadData()}>
-          {hasAlreadyLogged && filterSelected(chosenDays).length === 0
-            ? "Delete me"
-            : "Vote"}
+        <Button
+          className={classes.sendButton}
+          backgroundColor={isDeletable() && Colors.red}
+          onClick={() => uploadData()}
+        >
+          {isDeletable() ? "Remove me from the event" : "Vote"}
         </Button>
         <p>or</p>
         <Button
