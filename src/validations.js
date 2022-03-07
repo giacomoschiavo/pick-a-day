@@ -1,5 +1,7 @@
 import { checkPreviousDays } from "./utils";
+import { filterSelected } from "./utils";
 
+////////// CREATE.JS
 export const validateEventName = (eventName) => {
   if (eventName.trim() === "") {
     return "Please, choose a name for the event🗒️";
@@ -22,3 +24,28 @@ export const validateEventDays = (eventDays) => {
   }
   return false;
 };
+//////////
+
+////////// VOTE.JS
+export const checkUsername = (userName) => {
+  if (userName.trim() === "") {
+    return "Please, write your name🖊️";
+  }
+  if (userName.length < 3 || userName.length > 15) {
+    return "Please, choose a name between 3 and 15 characters📏";
+  }
+  return false;
+};
+
+export const checkChosenDays = (chosenDays) => {
+  // if (filterSelected(chosenDays).length < 1 && **!hasAlreadyLogged**) {
+  //   setError("Please, choose at least one day🐣");
+  //   setShowPopup(true);
+  //   return true;
+  // }
+  if (filterSelected(chosenDays).length < 1) {
+    return "Please, choose at least one day🐣";
+  }
+  return false;
+};
+//////////
