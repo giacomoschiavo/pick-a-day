@@ -10,6 +10,7 @@ export const dateToFormat = (date) => {
   return `${day.getDate()}/${day.getMonth() + 1}/${day.getFullYear()}`;
 };
 
+//
 export const formatToDate = (dateString) => {
   if (typeof dateString !== "string") throw new Error("String date needed");
   if (!dateString.split("/")) return dateString;

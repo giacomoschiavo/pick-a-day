@@ -10,7 +10,7 @@ const Div = styled.div`
   padding-top: 20px;
   z-index: 0;
   width: 28rem;
-  border-radius: 0 0 5px 5px;
+  border-radius: 0 0 20px 20px;
   margin: 10px;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
   max-width: 100%;

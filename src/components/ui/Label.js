@@ -7,7 +7,7 @@ const P = styled.p`
   text-align: center;
   color: ${(props) => props.color || Colors.black};
   font-weight: bolder;
-  font-size: 1.3rem;
+  font-size: 1.5rem;
   margin: 10px 0;
   font-style: normal;
   font-weight: normal;
