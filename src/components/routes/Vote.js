@@ -120,7 +120,7 @@ const Vote = () => {
       setError,
       setShowPopup,
       checkUsername(userName),
-      checkChosenDays(chosenDays)
+      checkChosenDays(chosenDays, hasAlreadyLogged)
     );
     if (errorThrown) {
       return;

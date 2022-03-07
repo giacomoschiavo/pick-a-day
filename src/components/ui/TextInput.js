@@ -9,7 +9,7 @@ const Div = styled.div`
 `;
 
 const Input = styled.input`
-  background: ${Colors.white};
+  background-color: ${Colors.white};
   box-sizing: border-box;
   box-shadow: 0px 2px 5px 2px rgba(0, 0, 0, 0.1);
   border-radius: 10px;

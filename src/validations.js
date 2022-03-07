@@ -37,13 +37,8 @@ export const checkUsername = (userName) => {
   return false;
 };
 
-export const checkChosenDays = (chosenDays) => {
-  // if (filterSelected(chosenDays).length < 1 && **!hasAlreadyLogged**) {
-  //   setError("Please, choose at least one day🐣");
-  //   setShowPopup(true);
-  //   return true;
-  // }
-  if (filterSelected(chosenDays).length < 1) {
+export const checkChosenDays = (chosenDays, hasAlreadyLogged) => {
+  if (filterSelected(chosenDays).length < 1 && !hasAlreadyLogged) {
     return "Please, choose at least one day🐣";
   }
   return false;
