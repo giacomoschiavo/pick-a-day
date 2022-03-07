@@ -26,6 +26,7 @@ const Vote = () => {
   const [chosenDays, setChosenDays] = useState({});
   const [userName, setUserName] = useState("");
   const [eventName, setEventName] = useState("");
+  const [partecipants, setPartecipants] = useState({});
 
   const [loading, setIsLoading] = useState(true);
   const [showPopup, setShowPopup] = useState(false);
@@ -40,83 +41,58 @@ const Vote = () => {
 
   //determinates if user has already visited the page
   useEffect(() => {
-    setIsLoading(true);
     if (localStorage.getItem(localStorageItem) != null) {
       if (JSON.parse(localStorage.getItem(localStorageItem))[id] != null) {
         setHasAlreadyLogged(true);
         setUserName(JSON.parse(localStorage.getItem(localStorageItem))[id]);
       }
     }
-    setIsLoading(false);
   }, [id]);
 
   //get event info if the user has already voted
   useEffect(() => {
     let unmounted = false;
-    if (!hasAlreadyLogged) {
-      return () => (unmounted = true);
-    }
     setIsLoading(true);
     if (!unmounted) {
-      axios
-        .get(`/api/v1/event/${id}`)
-        .then((res) => {
-          setEventName(res.data.name);
-          // crea oggetto date tipo {'12/9/2022': false}, nessuna data e' selezionata di default
-          const newChosenDays = res.data.days.reduce((obj, day) => {
-            obj[day] = false;
-            return obj;
-          }, {});
-          res.data.partecipants[userName].forEach(
-            (date) => (newChosenDays[date] = true)
-          );
-          setChosenDays(newChosenDays);
-        })
-        .catch((error) => {
-          setError(error.response.data.msg);
-          setShowPopup(true);
-          console.log(error);
-        })
-        .finally(() => setIsLoading(false));
+      handleRequest(axios.get(`/api/v1/event/${id}`), (res) => {
+        setEventName(res.data.name);
+        // crea oggetto date tipo {'12/9/2022': false}, nessuna data e' selezionata di default
+        const newChosenDays = res.data.days.reduce((obj, day) => {
+          obj[day] = false;
+          return obj;
+        }, {});
+        setChosenDays(newChosenDays);
+        setPartecipants(res.data.partecipants);
+      });
     }
-
     return () => (unmounted = true);
-  }, [id, hasAlreadyLogged, userName]);
+  }, [id]);
 
-  //get event info if the user has NOT already voted
+  //get event info if the user has already voted
   useEffect(() => {
-    let unmounted = false;
-    if (!unmounted) {
-      if (hasAlreadyLogged) {
-        return () => (unmounted = true);
-      }
-      setIsLoading(true);
-      axios
-        .get(`/api/v1/event/${id}`)
-        .then((res) => {
-          setEventName(res.data.name);
-          // crea oggetto date tipo {'12/9/2022': false}, nessuna data e' selezionata di default
-          const newChosenDays = res.data.days.reduce((obj, day) => {
-            obj[day] = false;
-            return obj;
-          }, {});
-          setChosenDays(newChosenDays);
-        })
-        .catch((error) => {
-          setError(error.response.data.msg);
-          setShowPopup(true);
-          console.log(error);
-        })
-        .finally(() => setIsLoading(false));
-    }
+    if (!hasAlreadyLogged || Object.keys(partecipants).length === 0) return;
+    // take the username and toggle the available days
+    setChosenDays((prevChosenDay) => {
+      let newChosenDays = { ...prevChosenDay };
+      partecipants[userName].forEach((date) => (newChosenDays[date] = true));
+      return newChosenDays;
+    });
+  }, [hasAlreadyLogged, userName, partecipants]);
 
-    return () => (unmounted = true);
-  }, [id, hasAlreadyLogged]);
-
-  //check for errors before uploading the data
+  const handleRequest = (req, callback) => {
+    req
+      .then((res) => {
+        callback(res);
+      })
+      .catch((error) => {
+        setError(error.response.data.msg);
+        setShowPopup(true);
+      })
+      .finally(() => setIsLoading(false));
+  };
 
   //uplaod data managing all the possible user's cases
-  async function uploadData() {
+  const uploadData = async () => {
     const errorThrown = checkErrorsAndShowPopup(
       setError,
       setShowPopup,
@@ -126,79 +102,67 @@ const Vote = () => {
     if (errorThrown) {
       return;
     }
+    // se arriva qui non ci sono errori di input
     setIsLoading(true);
     if (!hasAlreadyLogged) {
       //case where user has never voted before
-      const dataToSend = {
-        name: userName,
-        available: filterSelected(chosenDays),
-        eventId: id,
-      };
-      axios
-        .post("/api/v1/partecipants", dataToSend)
-        .then((res) => {
-          let newEventList = {};
-          newEventList[id] = userName;
-          localStorage.setItem(localStorageItem, JSON.stringify(newEventList));
+      handleRequest(
+        axios.post("/api/v1/partecipants", {
+          name: userName,
+          available: filterSelected(chosenDays),
+          eventId: id,
+        }),
+        () => {
+          localStorage.setItem(
+            localStorageItem,
+            JSON.stringify({ [id]: userName })
+          );
           navigateToResults();
-        })
-        .catch((error) => {
-          setError(error.response.data.msg);
-          setShowPopup(true);
-          console.log(error);
-        })
-        .finally(() => setIsLoading(false));
+        }
+      );
     } else {
       if (filterSelected(chosenDays).length === 0) {
         //case where user has already voted and has chosen 0 days available, so he wants to get eliminated
-        axios
-          .delete("/api/v1/partecipants", {
+        handleRequest(
+          axios.delete("/api/v1/partecipants", {
             headers: {},
             data: {
               name: userName,
               eventId: id,
             },
-          })
-          .then((res) => {
+          }),
+          () => {
+            localStorage.setItem(
+              localStorageItem,
+              JSON.stringify({ [id]: null })
+            );
             navigateToResults();
-          })
-          .catch((error) => {
-            setError(error.response.data.msg);
-            setShowPopup(true);
-            console.log(error);
-          })
-          .finally(() => setIsLoading(false));
+          }
+        );
       } else {
         //case where user has already voted and has chosen some days
-        axios
-          .patch("/api/v1/partecipants", {
+        handleRequest(
+          axios.patch("/api/v1/partecipants", {
             name: userName,
             available: filterSelected(chosenDays),
             eventId: id,
-          })
-          .then((res) => {
-            navigateToResults();
-          })
-          .catch((error) => {
-            setError(error.response.data.msg);
-            setShowPopup(true);
-            console.log(error);
-          })
-          .finally(() => setIsLoading(false));
+          }),
+          navigateToResults
+        );
       }
     }
-    return;
-  }
+  };
 
-  function onDayClickHandler(date) {
+  const onDayClickHandler = (date) => {
     // toggles the value in the corresponding date
     setChosenDays((prevDays) => {
       const newDays = { ...prevDays };
       newDays[date] = !newDays[date];
       return newDays;
     });
-  }
+  };
 
+  // checks if the user is deletable (no chosen days)
   const isDeletable = () => {
     return hasAlreadyLogged && filterSelected(chosenDays).length === 0;
   };
