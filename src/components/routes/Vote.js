@@ -54,7 +54,7 @@ const Vote = () => {
     let unmounted = false;
     setIsLoading(true);
     if (!unmounted) {
-      handleRequest(axios.get(`/api/v1/event/${id}`), (res) => {
+      handleRequest(axios.get(`/api/v1/event/${id}`).then((res) => {
         setEventName(res.data.name);
         // crea oggetto date tipo {'12/9/2022': false}, nessuna data e' selezionata di default
         const newChosenDays = res.data.days.reduce((obj, day) => {
@@ -63,12 +63,15 @@ const Vote = () => {
         }, {});
         setChosenDays(newChosenDays);
         setPartecipants(res.data.partecipants);
-      });
+      }).catch((err) => {
+        navigate('404')
+      })
+      );
     }
     return () => (unmounted = true);
-  }, [id]);
+  }, [id, navigate]);
 
-  //get event info if the user has already voted
+  //get event info if the user has NOT already voted
   useEffect(() => {
     if (!hasAlreadyLogged || Object.keys(partecipants).length === 0) return;
     // take the username and toggle the available days

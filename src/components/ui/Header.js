@@ -22,6 +22,9 @@ const Div = styled.div`
 const Image = styled.img`
   height: 100%;
   transform: scale(3);
+  :hover {
+    cursor: pointer;
+  }
 `;
 
 const Header = () => {
