@@ -51,3 +51,10 @@
   transition: .3s;
   margin-bottom: 10px;
 }
+
+.today {
+  background-color: grey !important;
+  color: white !important;
+  border-radius: 50px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+}

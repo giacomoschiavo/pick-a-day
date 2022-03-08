@@ -7,7 +7,11 @@ import Calendar from "react-calendar";
 import TextInput from "../ui/TextInput";
 import Section from "../container/Section";
 import "../ui/Calendar.css";
-import { checkErrorsAndShowPopup, dateToFormat } from "../../utils";
+import {
+  checkErrorsAndShowPopup,
+  dateToFormat,
+  handleRequest,
+} from "../../utils";
 import { validateEventDays, validateEventName } from "../../validations";
 import classes from "./Create.module.css";
 import Popup from "../ui/Popup";
@@ -36,17 +40,16 @@ const Create = () => {
 
     // TODO: convert to the synchronous way
     const formattedDates = eventDays.map(dateToFormat);
-    axios
-      .post("/api/v1/event", {
+    handleRequest(
+      setError,
+      setShowPopup,
+      setIsLoading,
+      axios.post("/api/v1/event", {
         days: formattedDates,
         name: eventName,
-      })
-      .then((res) => navigate(`/${res.data._id}`))
-      .catch((error) => {
-        setError(error.response.data.msg);
-        setShowPopup(true);
-      })
-      .finally(() => setIsLoading(false));
+      }),
+      (res) => navigate(`/${res.data._id}`)
+    );
   };
 
   // works
@@ -66,9 +69,18 @@ const Create = () => {
 
   const getTileClassName = ({ date }) => {
     // se la data e' stata selezionata, aggiungi la classe
-    const dateToCheck = new Date(date).getTime();
+    const dateToCheck = date.getTime();
     const foundDay = eventDays.find((day) => day === dateToCheck);
-    return foundDay ? classes.selectedDate : "";
+    const today = new Date();
+    let className = null;
+    if (
+      today.getDate() === date.getDate() &&
+      today.getMonth() === date.getMonth() &&
+      today.getFullYear() === date.getFullYear()
+    )
+      className = classes.today;
+    className = foundDay ? classes.selectedDate : className;
+    return className;
   };
 
   return (

@@ -99,3 +99,25 @@ export const checkErrorsAndShowPopup = (
   });
   return errorThrown;
 };
+
+// gestisce ogni richiesta con popup
+// sono consapevole che passare le funzioni di set è una porcata
+// ma sono una soluzione temporanea
+export const handleRequest = (
+  setError,
+  setShowPopup,
+  setIsLoading,
+  req,
+  callback
+) => {
+  req
+    .then((res) => {
+      setIsLoading(false);
+      callback(res);
+    })
+    .catch((error) => {
+      setError("Whooops! Something bad happened");
+      setShowPopup(true);
+      setIsLoading(false);
+    });
+};
