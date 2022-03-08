@@ -55,6 +55,7 @@ const Vote = () => {
     let unmounted = false;
     setIsLoading(true);
     if (!unmounted) {
+      // TODO: 404 to handle
       handleRequest(
         setError,
         setShowPopup,
@@ -73,9 +74,9 @@ const Vote = () => {
       );
     }
     return () => (unmounted = true);
-  }, [id]);
+  }, [id, navigate]);
 
-  //get event info if the user has already voted
+  //get event info if the user has NOT already voted
   useEffect(() => {
     if (!hasAlreadyLogged || Object.keys(partecipants).length === 0) return;
     // take the username and toggle the available days
