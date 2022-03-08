@@ -23,7 +23,7 @@ const Create = () => {
 
   const navigate = useNavigate();
 
-  const navigateToVote = async () => {
+  const navigateToVote = () => {
     const thrownError = checkErrorsAndShowPopup(
       setError,
       setShowPopup,
@@ -33,19 +33,20 @@ const Create = () => {
     if (thrownError) return;
 
     setIsLoading(true);
+
+    // TODO: convert to the synchronous way
     const formattedDates = eventDays.map(dateToFormat);
-    try {
-      const res = await axios.post("/api/v1/event", {
+    axios
+      .post("/api/v1/event", {
         days: formattedDates,
         name: eventName,
-      });
-      navigate(`/${res.data._id}`);
-    } catch (error) {
-      setError(error.response.data.msg);
-      setShowPopup(true);
-    } finally {
-      setIsLoading(false);
-    }
+      })
+      .then((res) => navigate(`/${res.data._id}`))
+      .catch((error) => {
+        setError(error.response.data.msg);
+        setShowPopup(true);
+      })
+      .finally(() => setIsLoading(false));
   };
 
   // works
