@@ -2,6 +2,7 @@ import React from "react";
 import logo from "../../assets/logo.png";
 import styled from "styled-components";
 import { Colors } from "../../utils";
+import { useNavigate } from "react-router-dom";
 
 const Div = styled.div`
   box-sizing: border-box;
@@ -24,9 +25,12 @@ const Image = styled.img`
 `;
 
 const Header = () => {
+
+  const navigate = useNavigate();
+
   return (
     <Div>
-      <Image src={logo} alt="pick-a-day-logo" />
+      <Image onClick={() => navigate('/')} src={logo} alt="pick-a-day-logo" />
     </Div>
   );
 };

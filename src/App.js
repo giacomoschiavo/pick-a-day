@@ -16,8 +16,8 @@ function App() {
   return (
     <div>
       <CenteredContainer>
-        <Header />
         <BrowserRouter>
+          <Header />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/create" element={<Create />} />
