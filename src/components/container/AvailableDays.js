@@ -1,7 +1,7 @@
 import React from "react";
 import classes from "./AvailableDays.module.css";
 import Day from "../ui/Day";
-import { Colors, divideInMonths, getCapitalLetterMonth } from "../../utils";
+import { divideInMonths, getCapitalLetterMonth } from "../../utils";
 
 const AvailableDays = (props) => {
   const formattedDates = divideInMonths(Object.keys(props.chosenDays));
