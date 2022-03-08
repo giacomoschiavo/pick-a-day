@@ -191,21 +191,23 @@ const Vote = () => {
             chosenDays={chosenDays}
           />
         </Section>
-        <Button
-          className={classes.sendButton}
-          backgroundColor={isDeletable() && Colors.red}
-          onClick={() => uploadData()}
-        >
-          {isDeletable() ? "Remove me from the event" : "Vote"}
-        </Button>
-        <p>or</p>
-        <Button
-          className={classes.resultsButton}
-          isPrimary={false}
-          onClick={navigateToResults}
-        >
-          Show results
-        </Button>
+        <div className={classes.buttons}>
+          <Button
+            className={classes.sendButton}
+            backgroundColor={isDeletable() && Colors.red}
+            onClick={() => uploadData()}
+          >
+            {isDeletable() ? "Remove me from the event" : "Vote"}
+          </Button>
+          <p>or</p>
+          <Button
+            className={classes.resultsButton}
+            isPrimary={false}
+            onClick={navigateToResults}
+          >
+            Show results
+          </Button>
+        </div>
       </div>
       <Share url={`https://pick-a-day.netlify.app/${id}`} />
       {showPopup && (

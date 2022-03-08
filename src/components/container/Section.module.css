@@ -1,12 +1,13 @@
 .container {
   display: flex;
   flex-direction: column;
-  align-items: center;
   /* padding: 5px 0 20px 0; */
   padding-bottom: 20px;
-  align-content: stretch;
+  align-items: center;
+  /* align-content: stretch; */
 }
 
 .label {
-  padding: 10px 5px;
+  padding: 10px 0;
+  font-size: 1.1rem;
 }

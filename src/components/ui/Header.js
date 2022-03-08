@@ -9,7 +9,7 @@ const Div = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 6rem;
+  height: 4rem;
   width: 100%;
   text-align: center;
   overflow: hidden;
@@ -28,12 +28,11 @@ const Image = styled.img`
 `;
 
 const Header = () => {
-
   const navigate = useNavigate();
 
   return (
     <Div>
-      <Image onClick={() => navigate('/')} src={logo} alt="pick-a-day-logo" />
+      <Image onClick={() => navigate("/")} src={logo} alt="pick-a-day-logo" />
     </Div>
   );
 };

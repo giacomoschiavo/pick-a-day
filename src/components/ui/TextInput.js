@@ -3,25 +3,25 @@ import styled from "styled-components";
 import { Colors } from "../../utils";
 
 const Div = styled.div`
-  display: flex;
-  justify-content: center;
   border-radius: 15px;
+  width: 100%;
 `;
 
 const Input = styled.input`
+  width: inherit;
   background-color: ${Colors.white};
+  color: ${Colors.black};
   box-sizing: border-box;
   box-shadow: 0px 2px 5px 2px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
-  width: 100%;
   padding: 10px;
   margin: ${(props) => props.margin || 0}px;
   font-family: "VarelaRound";
   text-align: center;
   transition: 0.2s;
-  font-size: 1.3rem;
+  font-size: 1.4rem;
   opacity: ${(props) => (props.disabled ? 0.8 : 1)};
-  border: 1px solid rgba(0, 0, 0, 0.3);
+  border: 3px solid ${Colors.primary};
 
   &:hover {
     border: 1px solid rgba(0, 0, 0, 0.3);

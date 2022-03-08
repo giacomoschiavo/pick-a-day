@@ -89,7 +89,11 @@ const Create = () => {
       <div className={classes.container}>
         <h1 className={classes.title}>Let's organize something!</h1>
         <Section label="What is the name of the event?🍿">
-          <TextInput value={eventName} setValue={setEventName} />
+          <TextInput
+            value={eventName}
+            setValue={setEventName}
+            placeholder="Bowling party🎳"
+          />
         </Section>
         <Section label="When does it take place?⌚">
           <Calendar

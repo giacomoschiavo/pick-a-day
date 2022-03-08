@@ -6,14 +6,12 @@ import Label from "./Label";
 import TextInput from "./TextInput";
 
 const Div = styled.div`
-  transform: scale(0.8);
+  transform: scale(0.9);
   display: flex;
   justify-content: flex-end;
   align-items: center;
   flex-direction: column;
-  position: sticky;
   bottom: 0;
-  height: 10%;
   flex: 1;
   background-color: transparent;
 `;
@@ -24,9 +22,9 @@ const InternalDiv = styled.div`
   margin-bottom: 10px;
   padding: 10px;
   padding-bottom: 20px;
-  border: 4px solid ${Colors.primary};
+  border: 2px solid rgba(0, 0, 0, 0.2);
   border-radius: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
 `;
 
 const HorizontalDiv = styled.div`
@@ -42,7 +40,7 @@ const Input = styled(TextInput)`
 `;
 
 const Share = (props) => {
-  async function onClick() {
+  const onClickHandler = async () => {
     navigator.clipboard.writeText(props.url).then(
       function () {
         console.log("Async: Copying to clipboard was successful!");
@@ -51,7 +49,7 @@ const Share = (props) => {
         console.error("Async: Could not copy text: ", err);
       }
     );
-  }
+  };
 
   return (
     <Div>
@@ -59,7 +57,7 @@ const Share = (props) => {
         <Label color={Colors.black}>Share this link</Label>
         <HorizontalDiv>
           <Input disabled={true} value={props.url} />
-          <Button onClick={() => onClick()}>Copy</Button>
+          <Button onClick={onClickHandler}>Copy</Button>
         </HorizontalDiv>
       </InternalDiv>
     </Div>
