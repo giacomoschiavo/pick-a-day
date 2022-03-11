@@ -1,6 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../ui/Button";
+import Banner from "../ui/Banner";
+
 const Home = () => {
   const navigate = useNavigate();
   const onClickHandler = () => {
@@ -8,9 +10,9 @@ const Home = () => {
   };
 
   return (
-    <div>
-      <Button onClick={onClickHandler} value="Go to Create" />
-    </div>
+    <>
+      <Banner goToCreate={() => onClickHandler()} />
+    </>
   );
 };
 
