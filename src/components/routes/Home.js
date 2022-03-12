@@ -1,6 +1,5 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import Button from "../ui/Button";
 import Banner from "../ui/Banner";
 
 const Home = () => {
