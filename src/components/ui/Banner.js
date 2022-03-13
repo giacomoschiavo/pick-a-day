@@ -2,6 +2,7 @@ import React from "react";
 import classes from "./Banner.module.css";
 import cover from "../../assets/cover.jpg";
 import { Colors } from "../../utils";
+import Button from "./Button";
 
 const Banner = (props) => {
   return (
@@ -19,13 +20,14 @@ const Banner = (props) => {
           with co-workers? Create a new event, share the link and choose the
           best day for everyone.
         </p>
-        <div
-          className={classes.createEvent}
+        <Button
+          // className={classes.createEvent}
+          type="secondary"
           style={{ color: Colors.primary, backgroundColor: Colors.white }}
           onClick={props.goToCreate}
         >
           Create event
-        </div>
+        </Button>
       </div>
     </div>
   );

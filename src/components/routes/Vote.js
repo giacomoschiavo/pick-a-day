@@ -196,13 +196,14 @@ const Vote = () => {
             className={classes.sendButton}
             backgroundColor={isDeletable() && Colors.red}
             onClick={() => uploadData()}
+            type="primary"
           >
             {isDeletable() ? "Remove me from the event" : "Vote"}
           </Button>
           <p>or</p>
           <Button
             className={classes.resultsButton}
-            isPrimary={false}
+            type={"tertiary"}
             onClick={navigateToResults}
           >
             Show results

@@ -1,8 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import Banner from "../ui/Banner";
-import Label from "../ui/Label";
 import classes from "./Home.module.css";
+import ResultTab from "../ui/ResultTab";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -12,7 +12,7 @@ const Home = () => {
 
   return (
     <>
-      <Banner goToCreate={() => onClickHandler()} />
+      <Banner goToCreate={onClickHandler} />
       <div className={classes.instructions}>
         <p className={classes.howItWorks}>How it works✨</p>
         <div className={classes.tab}>

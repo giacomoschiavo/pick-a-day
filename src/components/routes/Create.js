@@ -102,7 +102,11 @@ const Create = () => {
             className={classes.calendar}
           />
         </Section>
-        <Button className={classes.createButton} onClick={navigateToVote}>
+        <Button
+          type="primary"
+          className={classes.createButton}
+          onClick={navigateToVote}
+        >
           Create
         </Button>
       </div>
