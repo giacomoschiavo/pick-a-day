@@ -5,10 +5,11 @@ import EventBanner from "../ui/EventBanner";
 import ResultTab from "../ui/ResultTab";
 import Section from "../container/Section";
 import classes from "./Results.module.css";
-import { formatToDate } from "../../utils";
+import { formatToDate, sortDates } from "../../utils";
 import Share from "../ui/Share";
 
 const extractResultsFromData = (data) => {
+  sortDates(data.days);
   return data.days.map((day) => {
     return {
       date: day,
@@ -33,6 +34,7 @@ const Results = () => {
       .then(function (response) {
         setData(response.data);
         const result = extractResultsFromData(response.data);
+        console.log(result);
         setResults(result);
       })
       .catch(function (error) {
