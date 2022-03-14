@@ -6,6 +6,7 @@ import ResultTab from "../ui/ResultTab";
 import Section from "../container/Section";
 import classes from "./Results.module.css";
 import { formatToDate, sortDates } from "../../utils";
+import Label from "../ui/Label";
 import Share from "../ui/Share";
 
 const extractResultsFromData = (data) => {
@@ -33,6 +34,7 @@ const Results = () => {
       .get(`/api/v1/event/${id}`)
       .then(function (response) {
         setData(response.data);
+        console.log(response.data);
         const result = extractResultsFromData(response.data);
         console.log(result);
         setResults(result);
@@ -56,22 +58,26 @@ const Results = () => {
       <EventBanner eventName={data.name} />
       <div className={classes.container}>
         <div className={classes.resultsContainer}>
-          {results.some((obj) => obj.nonParts.length === 0) && (
-            <Section
-              className={classes.section}
-              label="These days are perfect! 🎉"
-            >
-              {results.map(
-                (obj) =>
-                  obj.nonParts.length === 0 && (
-                    <ResultTab
-                      key={obj.date}
-                      date={formatToDate(obj.date)}
-                      parts={Object.keys(data.partecipants)}
-                    />
-                  )
-              )}
-            </Section>
+          {data.partecipants && Object.keys(data.partecipants).length === 0 ? (
+            <Label>No one has voted yet! 😢</Label>
+          ) : (
+            results.some((obj) => obj.nonParts.length === 0) && (
+              <Section
+                className={classes.section}
+                label="These days are perfect! 🎉"
+              >
+                {results.map(
+                  (obj) =>
+                    obj.nonParts.length === 0 && (
+                      <ResultTab
+                        key={obj.date}
+                        date={formatToDate(obj.date)}
+                        parts={Object.keys(data.partecipants)}
+                      />
+                    )
+                )}
+              </Section>
+            )
           )}
           {results.some((obj) => obj.nonParts.length > 0) && (
             <Section
