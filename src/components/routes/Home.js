@@ -2,7 +2,6 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import Banner from "../ui/Banner";
 import classes from "./Home.module.css";
-import ResultTab from "../ui/ResultTab";
 
 const Home = () => {
   const navigate = useNavigate();
