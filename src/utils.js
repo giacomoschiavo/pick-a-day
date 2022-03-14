@@ -47,6 +47,13 @@ export const divideInMonths = (dates) => {
   return organized;
 };
 
+// return an array of dates sorted chronologically
+// dates must be an array with formatted dates
+// es. ['12/09/2022', '10/08/2021'];
+export const sortDates = (dates) => {
+  dates.sort((a, b) => formatToDate(a) - formatToDate(b));
+};
+
 // ritorna date selezionate in un array
 // dateObj structure be like => {'12/09/2022': true, '13/09/2022': false}
 // where true means the date was selected
