@@ -5,7 +5,7 @@ import EventBanner from "../ui/EventBanner";
 import ResultTab from "../ui/ResultTab";
 import Section from "../container/Section";
 import classes from "./Results.module.css";
-import { formatToDate, sortDates } from "../../utils";
+import { Colors, formatToDate, sortDates } from "../../utils";
 import Label from "../ui/Label";
 import Share from "../ui/Share";
 
@@ -68,6 +68,7 @@ const Results = () => {
                   (obj) =>
                     obj.nonParts.length === 0 && (
                       <ResultTab
+                        color={Colors.primary}
                         key={obj.date}
                         date={formatToDate(obj.date)}
                         parts={Object.keys(data.partecipants)}
@@ -86,6 +87,7 @@ const Results = () => {
                 (obj) =>
                   obj.nonParts.length > 0 && (
                     <ResultTab
+                      color={Colors.grey}
                       key={obj.date}
                       nonParts={obj.nonParts}
                       parts={Object.keys(data.partecipants)}

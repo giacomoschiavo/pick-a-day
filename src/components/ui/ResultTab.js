@@ -3,6 +3,7 @@ import Day from "./Day";
 import classes from "./ResultTab.module.css";
 import { getCapitalLetterMonth } from "../../utils";
 import { BiChevronDown } from "react-icons/bi";
+import Tab from "../container/Tab";
 
 const ResultTab = (props) => {
   const [show, setShow] = useState(false);
@@ -24,7 +25,7 @@ const ResultTab = (props) => {
 
   return (
     <>
-      <div className={classes.container} onClick={clicked}>
+      <Tab onClick={clicked} color={props.color || "#000000"}>
         <div className={classes.date}>
           <Day
             value={props.date.getDate()}
@@ -38,7 +39,7 @@ const ResultTab = (props) => {
         <div className={`${classes.iconContainer} ${show && classes.rotated}`}>
           <BiChevronDown className={classes.icon} />
         </div>
-      </div>
+      </Tab>
       {show && (
         <div className={classes.list}>
           {availableParts && (
