@@ -9,11 +9,14 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: stretch;
+  width: 100%;
 }
 
 .sendButton {
-  width: 100%;
+  font-size: 1.6rem !important;
   text-align: center;
+  width: 80%;
 }
 
 .resultsButton {

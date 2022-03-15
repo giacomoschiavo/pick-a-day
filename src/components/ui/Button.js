@@ -2,18 +2,24 @@ import React from "react";
 import styled, { css } from "styled-components";
 import { Colors } from "../../utils";
 
+// Button has three main types: primary, secondary and tertiary
+// primary => green background and white text
+// secondary => white background and green text
+// tertiary => no background, text underlined
+// backgroundColor is a top priority
+
 const Div = styled.div`
   box-sizing: border-box;
-  width: fit-content;
+  /* width: fit-content; */
   background-color: ${(props) =>
-    props.type === "primary"
+    props.backgroundColor
+      ? props.backgroundColor
+      : props.type === "primary"
       ? Colors.primary
       : props.type === "secondary"
       ? Colors.white
       : "transparent"};
-  padding: 15px;
-  padding-left: 40px;
-  padding-right: 40px;
+  padding: 15px 40px;
   color: ${(props) =>
     props.type === "primary"
       ? Colors.white
@@ -49,11 +55,6 @@ const Div = styled.div`
       opacity: 0.6;
     `} */
 `;
-
-// 3 types of button
-// primary => green background and white text
-// secondary => white background and green text
-// tertiary => no background, text underlined
 
 const Button = (props) => {
   return (

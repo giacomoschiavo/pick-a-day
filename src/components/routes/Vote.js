@@ -195,7 +195,7 @@ const Vote = () => {
           <Button
             className={classes.sendButton}
             backgroundColor={isDeletable() && Colors.red}
-            onClick={() => uploadData()}
+            onClick={uploadData}
             type="primary"
           >
             {isDeletable() ? "Remove me from the event" : "Vote"}

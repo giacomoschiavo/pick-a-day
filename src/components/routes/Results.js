@@ -34,9 +34,7 @@ const Results = () => {
       .get(`/api/v1/event/${id}`)
       .then(function (response) {
         setData(response.data);
-        console.log(response.data);
         const result = extractResultsFromData(response.data);
-        console.log(result);
         setResults(result);
       })
       .catch(function (error) {
