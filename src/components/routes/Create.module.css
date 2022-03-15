@@ -21,7 +21,7 @@
 }
 
 .selectedDate {
-  background-color: #139a43 !important;
+  background-color: #139a43bb !important;
   color: white !important;
   border-radius: 50px;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
@@ -50,8 +50,8 @@
 }
 
 .today {
-  background-color: grey !important;
-  color: white !important;
+  background-color: #aaaaaa55 !important;
+  /* color: white !important; */
   border-radius: 50px;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
 }
