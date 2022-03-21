@@ -6,14 +6,13 @@ const Container = styled.div`
   display: flex;
   cursor: pointer;
   flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
+  justify-content: center;
   border-radius: 20px;
   padding: 15px;
   border: 2px solid ${(props) => props.color}22;
   margin: 20px 0;
   margin-bottom: 0;
-  box-shadow: 0px 4px 8px ${(props) => props.color}22;
+  /* box-shadow: 0px 4px 8px ${(props) => props.color}22; */
   width: 100%;
   transition: 0.4s;
 
@@ -25,7 +24,11 @@ const Container = styled.div`
 
 const Tab = (props) => {
   return (
-    <Container onClick={props.onClick} color={props.color}>
+    <Container
+      onClick={props.onClick}
+      color={props.color}
+      className={props.className}
+    >
       {props.children}
     </Container>
   );

@@ -1,8 +1,15 @@
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .date {
+  width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
-  flex: 2;
 }
 
 .day {
@@ -12,10 +19,12 @@
 }
 
 .month {
+  flex: 1;
   margin: 0 10px;
 }
 
 .icon {
+  flex: 1;
   opacity: .8;
   font-size: 2rem;
 }
@@ -32,15 +41,26 @@
 }
 
 .list {
+  width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
   width: 90%;
-  transition: .4s;
+  transition: .2s;
   /* border: 1px solid rgba(0, 0, 0, 0.1); */
   border-radius: 0 0 15px 15px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+  transform: translateY(-100%);
+  opacity: 0;
+}
+
+.translated {
+  transition: .2s;
+  height: 100%;
+  opacity: 1;
+  transform: translate(0);
 }
 
 .parts {

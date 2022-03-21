@@ -24,7 +24,7 @@ const ResultTab = (props) => {
   }
 
   return (
-    <>
+    <div className={classes.container}>
       <Tab onClick={clicked} color={props.color || "#000000"}>
         <div className={classes.date}>
           <Day
@@ -35,34 +35,34 @@ const ResultTab = (props) => {
           <p className={classes.month}>
             {getCapitalLetterMonth(props.date.getMonth() + 1)}
           </p>
-        </div>
-        <div className={`${classes.iconContainer} ${show && classes.rotated}`}>
-          <BiChevronDown className={classes.icon} />
+          <div
+            className={`${classes.iconContainer} ${show && classes.rotated}`}
+          >
+            <BiChevronDown className={classes.icon} />
+          </div>
         </div>
       </Tab>
-      {show && (
-        <div className={classes.list}>
-          {availableParts && (
-            <div className={classes.parts}>
-              {availableParts.map((part, i) => (
-                <p className={classes.part} key={i}>
-                  ✅ {part}
-                </p>
-              ))}
-            </div>
-          )}
-          {notAvailParts && (
-            <div className={classes.parts}>
-              {notAvailParts.map((part, i) => (
-                <p className={classes.part} key={i}>
-                  ❌ {part}
-                </p>
-              ))}
-            </div>
-          )}
-        </div>
-      )}
-    </>
+      <div className={`${classes.list} ${show && classes.translated}`}>
+        {availableParts && (
+          <div className={classes.parts}>
+            {availableParts.map((part, i) => (
+              <p className={classes.part} key={i}>
+                ✅ {part}
+              </p>
+            ))}
+          </div>
+        )}
+        {notAvailParts && (
+          <div className={classes.parts}>
+            {notAvailParts.map((part, i) => (
+              <p className={classes.part} key={i}>
+                ❌ {part}
+              </p>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
   );
 };
 
