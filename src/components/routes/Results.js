@@ -97,7 +97,7 @@ const Results = () => {
           )}
         </div>
       </div>
-      <Share url={`https://pick-a-day.netlify.app/${id}`} />
+      <Share url={`https://www.pickaday.live/${id}`} />
     </>
   );
 };
