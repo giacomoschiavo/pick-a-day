@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Colors } from "../../utils";
 import Button from "./Button";
@@ -40,12 +40,15 @@ const Input = styled(TextInput)`
 `;
 
 const Share = (props) => {
+  const [clicked, setClicked] = useState(false);
+
   const onClickHandler = async () => {
     navigator.clipboard.writeText(props.url).then(
-      function () {
+      () => {
         console.log("Async: Copying to clipboard was successful!");
+        setClicked(true);
       },
-      function (err) {
+      (err) => {
         console.error("Async: Could not copy text: ", err);
       }
     );
@@ -57,7 +60,12 @@ const Share = (props) => {
         <Label color={Colors.black}>Share this link</Label>
         <HorizontalDiv>
           <Input disabled={true} value={props.url} />
-          <Button onClick={onClickHandler}>Copy</Button>
+          <Button
+            onClick={onClickHandler}
+            type={clicked ? "secondary" : "primary"}
+          >
+            {clicked ? "Copied!" : "Copy"}
+          </Button>
         </HorizontalDiv>
       </InternalDiv>
     </Div>
