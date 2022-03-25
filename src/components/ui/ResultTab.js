@@ -44,6 +44,7 @@ const ResultTab = (props) => {
           <BiChevronDown className={classes.icon} />
         </div>
       </Tab>
+
       <div className={`${classes.list} ${show && classes.translated}`}>
         {availableParts && (
           <div className={classes.parts}>

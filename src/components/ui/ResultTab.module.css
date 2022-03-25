@@ -1,6 +1,10 @@
 .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   position: relative;
   width: 100%;
+  margin: 10px 0px;
 }
 
 .tab {
@@ -14,12 +18,11 @@
   z-index: 2;
   padding: 10px 20px;
   border: 1px solid #00000022;
-  box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
-  background-color: #eee;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
 }
 
 .day {
-  box-shadow: none !important;
+  box-shadow: none;
   border: 1px solid rgba(0, 0, 0, 0.2);
   transform: scale(0.8);
 }
@@ -48,8 +51,9 @@
 
 .list {
   position: relative;
-  top: -100px;
-  width: 100%;
+  margin-top: -4rem;
+  opacity: 0;
+  width: 80%;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -63,12 +67,14 @@
 
 .translated {
   transition: .2s;
-  top: 0;
+  margin-top: 0%;
+  opacity: 1;
 }
 
 .parts {
   font-size: 0.9rem;
   padding: 10px 5px;
+  z-index: inherit;
 }
 
 .part {
