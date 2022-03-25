@@ -17,7 +17,7 @@ const Banner = (props) => {
         </p>
         <p className={classes.secondLine} style={{ color: Colors.white }}>
           Want to ask your friends where to go friday night or arrange a meeting
-          with co-workers? Create a new event, share the link and choose the
+          with your co-workers? Create a new event, share the link and choose the
           best day for everyone.
         </p>
         <Button
