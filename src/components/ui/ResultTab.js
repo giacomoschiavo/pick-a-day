@@ -1,9 +1,8 @@
 import { useState } from "react";
-import Day from "./Day";
 import classes from "./ResultTab.module.css";
 import { getCapitalLetterMonth } from "../../utils";
 import { BiChevronDown } from "react-icons/bi";
-import Tab from "../container/Tab";
+import ItemTab from "../container/ItemTab";
 
 // derives from Tab
 // when clicked should drop a container that contains all the participants
@@ -27,23 +26,19 @@ const ResultTab = (props) => {
 
   return (
     <div className={classes.container}>
-      <Tab
+      <ItemTab
         onClick={clicked}
         color={props.color || "#000000"}
         className={classes.tab}
+        itemValue={props.date.getDate()}
       >
-        <Day
-          value={props.date.getDate()}
-          className={classes.day}
-          onDayClick={() => {}}
-        />
         <p className={classes.month}>
           {getCapitalLetterMonth(props.date.getMonth() + 1)}
         </p>
         <div className={`${classes.iconContainer} ${show && classes.rotated}`}>
           <BiChevronDown className={classes.icon} />
         </div>
-      </Tab>
+      </ItemTab>
 
       <div className={`${classes.list} ${show && classes.translated}`}>
         {availableParts && (
