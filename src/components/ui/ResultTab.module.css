@@ -1,45 +1,28 @@
 .container {
-  box-sizing: border-box;
   display: flex;
-  cursor: pointer;
-  flex-direction: row;
-  justify-content: space-around;
+  flex-direction: column;
   align-items: center;
-  border-radius: 20px;
-  padding: 15px;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  margin: 20px 0;
-  margin-bottom: 0;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative;
   width: 100%;
-  transition: .4s;
+  margin: 10px 0px;
+  cursor: pointer;
 }
 
-.container:hover {
-  box-shadow: none;
-  transition: .4s;
-}
-
-
-.date {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  flex: 2;
-}
-
-.day {
-  box-shadow: none !important;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  transform: scale(0.8);
+.tab {
+  position: relative;
+  top: 0;
+  left: 0;
+  z-index: 2;
 }
 
 .month {
+  flex: 1;
   margin: 0 10px;
 }
 
 .icon {
-  opacity: .8;
+  flex: 1;
+  opacity: 0.8;
   font-size: 2rem;
 }
 
@@ -50,28 +33,49 @@
 }
 
 .rotated {
-  transition: .3s;
+  transition: 0.3s;
   transform: rotate(180deg);
 }
 
 .list {
+  position: relative;
+  margin-top: -5.1vh;
+  height: 5vh;
+  width: 80%;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
-  width: 90%;
-  transition: .4s;
+  transition: 0.2s;
   /* border: 1px solid rgba(0, 0, 0, 0.1); */
   border-radius: 0 0 15px 15px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+}
+
+.list p {
+  transition: 0.1s;
+  opacity: 0;
+}
+
+.translated {
+  transition: 0.2s;
+  margin-top: 0%;
+  opacity: 1;
+  height: auto;
+}
+
+.translated p {
+  transition: 0.1s;
+  opacity: 1;
 }
 
 .parts {
   font-size: 0.9rem;
   padding: 10px 5px;
+  z-index: inherit;
 }
 
 .part {
   margin: 10px 0;
-
 }

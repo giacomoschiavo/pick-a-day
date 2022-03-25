@@ -3,6 +3,7 @@ import Label from "../ui/Label";
 import classes from "./Section.module.css";
 
 // Renders a big title (Label) and its children
+// props needed: className?, props.sub?, props.label?, props.children?
 const Section = (props) => {
   // console.log("Section.js re-rendered con ", props.label);
   return (
