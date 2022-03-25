@@ -38,7 +38,7 @@ const Create = () => {
 
     setIsLoading(true);
 
-    // TODO: convert to the synchronous way
+    //TODO: convert to the synchronous way
     const formattedDates = eventDays.map(dateToFormat);
     handleRequest(
       setError,
