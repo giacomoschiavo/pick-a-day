@@ -73,18 +73,24 @@ export const getCapitalLetterMonth = (n) => {
   return month.charAt(0).toUpperCase() + month.slice(1);
 };
 
-// checks if all the days in the array are not before today (not included)
-// * days are in getTime() format (ms) = [ 1645657200000, 1645743600000]
-export const checkPreviousDays = (days) => {
+// return true if "day" is before today
+// day needs to be in milliseconds, returned with Date.getTime()
+export const isBeforeToday = (day) => {
   const actualTime = new Date();
-  // parte da mezzanotte, il giorno stesso puo essere programmato
+  // check for the entire day
   const today = new Date(
     `${
       actualTime.getMonth() + 1
     }/${actualTime.getDate()}/${actualTime.getFullYear()}`
   ).getTime();
+  return day < today;
+};
+
+// checks if all the days in the array are not before today (not included)
+// * days are in getTime() format (ms) = [ 1645657200000, 1645743600000]
+export const checkPreviousDays = (days) => {
   // ritorna true se almeno un giorno e' precedente a questo
-  return days.some((day) => day < today);
+  return days.some(isBeforeToday);
 };
 
 // takes every input validation function and if at least one is not passed
