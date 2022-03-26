@@ -112,9 +112,9 @@ const Create = () => {
           Create
         </Button>
       </div>
-      {showPopup && (
-        <Popup closePopup={() => setShowPopup(false)}>{error}</Popup>
-      )}
+      <Popup showPopup={showPopup} closePopup={() => setShowPopup(false)}>
+        {error}
+      </Popup>
     </>
   );
 };
