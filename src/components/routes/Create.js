@@ -11,6 +11,7 @@ import {
   checkErrorsAndShowPopup,
   dateToFormat,
   handleRequest,
+  isBeforeToday,
 } from "../../utils";
 import { validateEventDays, validateEventName } from "../../validations";
 import classes from "./Create.module.css";
@@ -56,11 +57,11 @@ const Create = () => {
   const onClickDayHandler = useCallback(
     (date) => {
       const dateToCheck = new Date(date).getTime();
-      // elimina il giorno gia presente
+      if (isBeforeToday(dateToCheck)) return; // date before today could not be
+      // toggles the presence of this day from [eventDays]
       if (eventDays.indexOf(dateToCheck) > -1) {
         setEventDays((prev) => prev.filter((date) => date !== dateToCheck));
       } else {
-        // oppure lo aggiunge
         setEventDays((prev) => [...prev, dateToCheck]);
       }
     },
@@ -70,9 +71,10 @@ const Create = () => {
   const getTileClassName = ({ date }) => {
     // se la data e' stata selezionata, aggiungi la classe
     const dateToCheck = date.getTime();
+    if (isBeforeToday(dateToCheck)) return classes.beforeToday;
+    let className = null;
     const foundDay = eventDays.find((day) => day === dateToCheck);
     const today = new Date();
-    let className = null;
     if (
       today.getDate() === date.getDate() &&
       today.getMonth() === date.getMonth() &&
