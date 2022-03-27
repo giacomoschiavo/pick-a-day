@@ -23,11 +23,11 @@ const Backdrop = (props) => {
         left: 0,
         backgroundColor: "rgba(0, 0, 0, 0.6)",
         width: "100%",
+        height: "100%",
         opacity: 0,
         zIndex: 99,
       }}
       animate={{
-        height: "100%",
         opacity: 1,
       }}
       exit={{

@@ -32,10 +32,9 @@ const Popup = (props) => {
           <Backdrop onClick={props.closePopup} key="backdrop" />
           <motion.div
             key="popup"
-            animate={{
+            initial={{
               zIndex: "100",
               position: "fixed",
-              transform: "translate(-50%, -50%)",
               top: "50%",
               left: "50%",
               display: "flex",
@@ -45,11 +44,17 @@ const Popup = (props) => {
               padding: "10px",
               borderRadius: "15px",
               boxShadow: "0 2px 4px rgba(0, 0, 0, 0.5)",
-              opacity: 1,
+              scale: 0,
+              translateX: "-50%",
+              translateY: "-50%",
+            }}
+            animate={{
+              scale: 1,
             }}
             exit={{
-              opacity: 0,
+              scale: 0,
             }}
+            transition={{ type: "spring", damping: 50, stiffness: 700 }}
           >
             <div style={{ padding: "10px" }}>{props.children}</div>
             <ConfirmButton value="Ok" onClick={props.closePopup} />
