@@ -131,6 +131,6 @@ export const handleRequest = (
     .catch((error) => {
       setError("Whooops! Something bad happened");
       setShowPopup(true);
-      setIsLoading(false);
+      // setIsLoading(false); => infinite loading for the user
     });
 };

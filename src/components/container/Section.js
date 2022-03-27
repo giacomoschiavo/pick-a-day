@@ -20,23 +20,21 @@ const Section = (props) => {
 // if true, the update is skipped
 export default React.memo(Section, (prevProps, nextProps) => {
   // if value in textInput is the same, don't update
-  if (prevProps.children.props.value)
-    return prevProps.children.props.value === nextProps.children.props.value;
-
   // don't render if empty string
-  if (
-    prevProps.children.props.value === "" &&
-    nextProps.children.props.value === ""
-  )
-    return true;
-
+  // if (prevProps.children.props)
+  //   if (prevProps.children.props.value)
+  //     return (
+  //       prevProps.children.props.value === nextProps.children.props.value ||
+  //       (prevProps.children.props.value === "" &&
+  //         nextProps.children.props.value === "")
+  //     );
   // if eventDays did not change, so onClickDay did and so an update is not needed
   // this works thanks to useCallback
-  if (prevProps.children.props.onClickDay)
-    return (
-      prevProps.children.props.onClickDay ===
-      nextProps.children.props.onClickDay
-    );
-
-  return false;
+  // if (prevProps.children.props.onClickDay)
+  //   return (
+  //     prevProps.children.props.onClickDay ===
+  //     nextProps.children.props.onClickDay
+  //   );
+  // return false;
+  return true;
 });
