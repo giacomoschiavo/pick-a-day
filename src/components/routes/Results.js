@@ -8,6 +8,7 @@ import classes from "./Results.module.css";
 import { Colors, formatToDate, sortDates } from "../../utils";
 import Label from "../ui/Label";
 import Share from "../ui/Share";
+import Loading from "../ui/Loading";
 
 const extractResultsFromData = (data) => {
   sortDates(data.days);
@@ -28,6 +29,7 @@ const Results = () => {
 
   const [results, setResults] = useState([]);
   const [data, setData] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     axios
@@ -36,6 +38,7 @@ const Results = () => {
         setData(response.data);
         const result = extractResultsFromData(response.data);
         setResults(result);
+        setIsLoading(false);
       })
       .catch(function (error) {
         console.log(error);
@@ -53,6 +56,7 @@ const Results = () => {
 
   return (
     <>
+      <Loading isLoading={isLoading} />
       <EventBanner eventName={data.name} />
       <div className={classes.container}>
         <div className={classes.resultsContainer}>

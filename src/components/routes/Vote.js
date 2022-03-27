@@ -174,7 +174,7 @@ const Vote = () => {
 
   return (
     <>
-      {loading && <Loading />}
+      <Loading isLoading={loading} />
       <EventBanner eventName={eventName} />
       <div className={classes.container}>
         {/* <p>{error}</p> */}
@@ -211,9 +211,9 @@ const Vote = () => {
         </div>
       </div>
       <Share url={`https://www.pickaday.live/${id}`} />
-      {showPopup && (
-        <Popup closePopup={() => setShowPopup(false)}>{error}</Popup>
-      )}
+      <Popup showPopup={showPopup} closePopup={() => setShowPopup(false)}>
+        {error}
+      </Popup>
     </>
   );
 };

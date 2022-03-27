@@ -87,7 +87,7 @@ const Create = () => {
 
   return (
     <>
-      {isLoading && <Loading />}
+      <Loading isLoading={isLoading} />
       <div className={classes.container}>
         <h1 className={classes.title}>Let's organize something!</h1>
         <Section label="What is the name of the event?🍿">
